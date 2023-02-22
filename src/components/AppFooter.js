@@ -5,7 +5,7 @@ const AppFooter = () => {
   return (
     <CFooter>
       <div>
-        <a href="#" rel="noopener noreferrer">
+        <a href="https://ojwang.co.ke" rel="noopener noreferrer">
           Ojwang
         </a>
         <span className="ms-1">&copy; 2023</span>
