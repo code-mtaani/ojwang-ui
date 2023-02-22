@@ -19,32 +19,10 @@ This is the front end for the Ojwang project. Documentation
 
 ### Installation
 
-``` bash
-$ npm install
-```
-
-or
-
-``` bash
-$ yarn install
-```
 
 
 #### Build
 
-Run `build` to build the project. The build artifacts will be stored in the `build/` directory.
-
-```bash
-# build for production with minification
-$ npm run build
-```
-
-or
-
-```bash
-# build for production with minification
-$ yarn build
-```
 
 ## Documentation
 
