@@ -1,6 +1,7 @@
 
 [![Docker Image CI](https://github.com/code-mtaani/ojwang-ui/actions/workflows/docker-image.yml/badge.svg)](https://github.com/code-mtaani/ojwang-ui/actions/workflows/docker-image.yml)
 
+[![NPM Installation](https://github.com/code-mtaani/ojwang-ui/actions/workflows/npm.yml/badge.svg)](https://github.com/code-mtaani/ojwang-ui/actions/workflows/npm.yml)
 
 
 
