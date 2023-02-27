@@ -10,7 +10,7 @@ services:
       dockerfile: Dockerfile
       context: .
     ports:
-      - "3000:80"
+      - "3000:3000"
     # command: "npm run build"
     volumes:
       - /app/node_modules
