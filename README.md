@@ -1,13 +1,11 @@
 
-[![Docker Image CI](https://github.com/code-mtaani/ojwang-ui/actions/workflows/docker-image.yml/badge.svg)](https://github.com/code-mtaani/ojwang-ui/actions/workflows/docker-image.yml)
-
-[![NPM Installation](https://github.com/code-mtaani/ojwang-ui/actions/workflows/npm.yml/badge.svg)](https://github.com/code-mtaani/ojwang-ui/actions/workflows/npm.yml)
+[![Docker Image CI](https://github.com/code-mtaani/ojwang-ui/actions/workflows/docker-image.yml/badge.svg)](https://github.com/code-mtaani/ojwang-ui/actions/workflows/docker-image.yml) [![NPM Installation](https://github.com/code-mtaani/ojwang-ui/actions/workflows/npm.yml/badge.svg)](https://github.com/code-mtaani/ojwang-ui/actions/workflows/npm.yml)
 
 
 
 # Ojwang frontend
 
-This is the front end for the Ojwang project. Documentation
+This is the front end for the Ojwang project. This project is react based and contains user functionality alongside bond functionality.
 
 ## Table of Contents
 
@@ -19,10 +17,11 @@ This is the front end for the Ojwang project. Documentation
 
 
 ### Installation
-
-
-
-#### Build
+#### Localhost
+ - To get started with this project, clone this repository `git clone https://github.com/code-mtaani/ojwang-ui.git`
+ - Change directory to the ojwang-ui `cd ojwang-ui`
+ - Run the project locally using docker-compose `docker-compose up`
+ - The application should be running on http://localhost:3000
 
 
 ## Documentation
