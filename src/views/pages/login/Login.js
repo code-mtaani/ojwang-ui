@@ -16,13 +16,9 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { axiosPublic } from 'src/utils/axiosPublic'
-import { useDispatch, useSelector } from 'react-redux'
-import { Alert } from '@coreui/coreui'
+// import { useDispatch, useSelector } from 'react-redux'
 
 const Login = () => {
-  const dispatch = useDispatch()
-  // const loginErrorMessageShow = useSelector((state) => state.loginErrorMessageShow)
-
   const [loginLoadingShow, setLoginLoadingShow] = useState(false)
   const [loginErrorMessageShow, setLoginErrorMessageShow] = useState(false)
   const [email, setEmail] = useState('')

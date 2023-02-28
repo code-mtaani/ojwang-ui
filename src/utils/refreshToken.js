@@ -6,11 +6,12 @@ const refreshTokenFn = async () => {
   const session = JSON.parse(localStorage.getItem('session'))
 
   try {
+    let session = JSON.parse(localStorage.getItem('session'))
     const response = await axiosPublic.post('/v1/user/token-refresh', {
       refresh: session?.refresh,
     })
 
-    const { session } = response.data
+    session = response.data
 
     if (!session?.accessToken) {
       localStorage.removeItem('session')
