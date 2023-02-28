@@ -3,7 +3,7 @@ import mem from 'mem'
 import { axiosPublic } from './axiosPublic'
 
 const refreshTokenFn = async () => {
-  const session = JSON.parse(localStorage.getItem('session'))
+  // const session = JSON.parse(localStorage.getItem('session'))
 
   try {
     let session = JSON.parse(localStorage.getItem('session'))
