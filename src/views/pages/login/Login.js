@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   CButton,
@@ -15,8 +15,42 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import { axiosPublic } from 'src/utils/axiosPublic'
+import { useDispatch, useSelector } from 'react-redux'
+import { Alert } from '@coreui/coreui'
 
 const Login = () => {
+  const dispatch = useDispatch()
+  // const loginErrorMessageShow = useSelector((state) => state.loginErrorMessageShow)
+
+  const [loginLoadingShow, setLoginLoadingShow] = useState(false)
+  const [loginErrorMessageShow, setLoginErrorMessageShow] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const toggleAlert = () => {
+    setLoginErrorMessageShow(!loginErrorMessageShow)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoginLoadingShow(!loginLoadingShow)
+    const payload = JSON.stringify({ email, password })
+
+    const onSuccess = ({ data }) => {
+      setLoginLoadingShow(!loginLoadingShow)
+      console.log('Logged in successfully')
+      localStorage.setItem('session', JSON.stringify(data))
+      window.location.reload()
+    }
+
+    const onFailure = (error) => {
+      toggleAlert()
+      console.log('Login failed.' + error && error.response)
+    }
+    axiosPublic.post('/v1/user/login/', payload).then(onSuccess).catch(onFailure)
+  }
+
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -25,14 +59,20 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
+                  <CForm onSubmit={handleSubmit}>
                     <h1>Login</h1>
                     <p className="text-medium-emphasis">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput
+                        placeholder="Email"
+                        autoComplete="email"
+                        type="email"
+                        id="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
@@ -40,13 +80,15 @@ const Login = () => {
                       </CInputGroupText>
                       <CFormInput
                         type="password"
+                        id="password"
                         placeholder="Password"
                         autoComplete="current-password"
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
+                        <CButton type="submit" color="primary" className="px-4">
                           Login
                         </CButton>
                       </CCol>
