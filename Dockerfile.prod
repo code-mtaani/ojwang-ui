@@ -2,9 +2,9 @@
 FROM node:alpine as build_stage
 WORKDIR /app
 COPY package.json .
-# COPY package-lock.json .
-# RUN npm ci
-RUN npm i
+COPY package-lock.json .
+RUN npm ci
+# RUN npm i
 COPY . .
 RUN npm run build
 
