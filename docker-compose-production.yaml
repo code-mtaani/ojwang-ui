@@ -13,6 +13,11 @@ services:
       - .env
     ports:
       - "3004:80"
+    healthcheck:
+      test: curl --fail -s http://localhost:3000/login || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 15
     # command: "npm run build"
     volumes:
       - /app/node_modules
