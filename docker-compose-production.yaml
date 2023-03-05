@@ -1,0 +1,52 @@
+version: '3.8'
+
+
+services:
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile.prod
+      context: .
+    env_file:
+      - .env
+    # ports:
+    #   - "3004:80"
+    healthcheck:
+      test: curl --fail -s http://localhost || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 15
+    # command: "npm run build"
+    volumes:
+      - /app/node_modules
+      - ./:/app
+    networks:
+      - reverse-proxy
+    labels:
+      # Since we don't expose containers per default we also need to enable traefik to expose the dashboard.
+      - "traefik.enable=true"
+      - "traefik.docker.network=reverse-proxy"
+      # http
+      # Since we are using the http challenge we and use the redirect we need 
+      #  to enable the http entrypoint.
+      - "traefik.http.routers.${PROJECT_NAME}-http.entrypoints=web"
+      # The domain we want to listen to
+      - "traefik.http.routers.${PROJECT_NAME}-http.rule=Host(`${BASE_URL}`)"
+      # We need to attach the api@internal service to the dashboard-http router
+      #  in order for the dashboard to be able to access the api (I think 🙈)
+      - "traefik.http.routers.${PROJECT_NAME}-http.service=api@internal"
+      # https
+      # Enable the https entrypoint
+      - "traefik.http.routers.${PROJECT_NAME}.entrypoints=websecure"
+      # The domain we want to listen to
+      - "traefik.http.routers.${PROJECT_NAME}.rule=Host(`${BASE_URL}`)"
+      # We want to obtain a certificate through Let's Encrypt
+      - "traefik.http.routers.${PROJECT_NAME}.tls=true"
+      - "traefik.http.routers.${PROJECT_NAME}.tls.certresolver=letsencrypt"
+
+
+networks:
+  reverse-proxy:
+    external: true

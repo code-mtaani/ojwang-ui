@@ -7,7 +7,7 @@ const refreshTokenFn = async () => {
 
   try {
     let session = JSON.parse(localStorage.getItem('session'))
-    const response = await axiosPublic.post('/v1/user/token-refresh', {
+    const response = await axiosPublic.post('/v1/user/token-refresh/', {
       refresh: session?.refresh,
     })
 
