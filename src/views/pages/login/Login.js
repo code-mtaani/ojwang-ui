@@ -57,7 +57,7 @@ const Login = () => {
                 <CCardBody>
                   <CForm onSubmit={handleSubmit}>
                     <h1>Login</h1>
-                    <p className="text-medium-emphasis">Sign In to your Ojwang account</p>
+                    <p className="text-medium-emphasis">Sign In to your ojwang account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
