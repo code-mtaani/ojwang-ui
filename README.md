@@ -36,8 +36,8 @@ Below is the workflow for contributing to this repository:
  - On you dev machine, create a branch that resembles the issue name and work on the change
  - Once you have made the changes and tested locally create a pull request against the main/master branch
  - For a pull request to be merged, it has to fullfill the following requirements:
-  - The feature added should have all the necessary unit tests
-  - The CI automated checks must pass
+     - The feature added should have all the necessary unit tests
+     - The CI automated checks must pass
  - Once the pull request is merged into the main branch, the work will be deployed to production automatically in the next deployment cycle (deployment occurs once every 20 minutes).
 
 ## Documentation
