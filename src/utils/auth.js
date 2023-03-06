@@ -1,4 +1,5 @@
 import { axiosPrivate } from './axiosPrivate'
+import jwt_decode from 'jwt-decode'
 
 export const isLoggedIn = () => {
   let session = JSON.parse(localStorage.getItem('session'))
@@ -25,4 +26,27 @@ export const logout = () => {
     window.location.reload()
   }
   axiosPrivate.post('/v1/user/logout/', payload).then(onSuccess).catch(onFailure)
+}
+
+export const getLoggedInUserRoles = () => {
+  var authToken = getToken()
+  if (!authToken) {
+    return
+  }
+
+  var decodedToken = jwt_decode(authToken)
+  return decodedToken.permissions
+}
+
+export const getToken = () => {
+  const session = JSON.parse(localStorage.getItem('session'))
+  if (session?.access) {
+    return session.access
+  }
+
+  return false
+}
+
+export const checkAccess = (permittedRoles, userRoles) => {
+  return permittedRoles.some((v) => userRoles.includes(v))
 }
