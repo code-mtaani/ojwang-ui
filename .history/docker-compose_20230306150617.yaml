@@ -1,0 +1,22 @@
+version: '3'
+
+
+services:
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile
+      context: .
+    healthcheck:
+      test: curl --fail -s http://localhost:3001 || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 15
+    ports:
+      - "3000:3000"
+    # command: "npm run build"
+    volumes:
+      - /app/node_modules
+      - ./:/app
