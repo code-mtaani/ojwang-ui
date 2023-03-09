@@ -1,7 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { CAlert, CContainer } from '@coreui/react';
+import { axiosPrivate } from 'src/utils/axiosPrivate';
+import { getUser_uid } from 'src/utils/user_id';
 
-const Profile = () => {
-  return <></>
+const Profile = () =>{
+  
+  
+  // get the currently loggedIn in user using their user_uid
+  const user_uid = getUser_uid()
+  
+  const getUserProfile = async() => {
+    const response = await axiosPrivate.get( `https://cbk-bonds.p.rapidapi.com/user/${user_uid}` )
+    const result = await response.data
+    console.log(result)
+  }
+  useEffect(() => {
+    getUserProfile()
+  },[user_uid])
+  
+  return ( <> <CContainer>
+    <div className='bg-danger'>
+      Profile
+    </div>
+
+  </CContainer>
+  </>
+  )
 }
 
 export default Profile
