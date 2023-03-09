@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { CAlert } from '@coreui/react';
+import React, { useState, useEffect } from 'react'
+import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
   CCard,
   CCardBody,
-  CCardGroup,
+  CCardGroup, 
   CCol,
   CContainer,
   CForm,
@@ -23,7 +23,7 @@ const Login = () =>
 {
   const navigate = useNavigate()
   const [loginLoadingShow, setLoginLoadingShow] = useState(false)
-  const [loginErrorMessageShow, setLoginErrorMessageShow] = useState(false)
+  const [ loginErrorMessageShow, setLoginErrorMessageShow ] = useState( false )
   const [ email, setEmail ] = useState( '' )
   const [errorMsg, setErrorMsg] = useState('')
   const [password, setPassword] = useState('')
@@ -32,14 +32,23 @@ const Login = () =>
     setLoginErrorMessageShow(!loginErrorMessageShow)
   }
 
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoginLoadingShow(!loginLoadingShow)
     const payload = JSON.stringify({ email, password })
 
     const onSuccess = ({ data }) => {
-      setLoginLoadingShow(!loginLoadingShow)
-      console.log('Logged in successfully')
+      setLoginLoadingShow( !loginLoadingShow )
+      toast.success("Login successful",{position: "top-right",
+            autoClose: 1200,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+      } )
       localStorage.setItem('session', JSON.stringify(data))
       // window.location.reload()
       navigate('/')
@@ -47,10 +56,12 @@ const Login = () =>
     }
 
     const onFailure = (error) => {
-      toggleAlert()
       // console.log('Login failed.' + error && error.response)
-      console.log('Login failed.', error?.response?.data?.detail)
       setErrorMsg( error?.response?.data?.detail)
+      toast.error( `Login failed! ${ error?.response?.data?.detail }`, {
+        theme: "colored",
+        autoClose: 800,
+      })
     }
     axiosPublic.post('/v1/user/login/', payload).then(onSuccess).catch(onFailure)
   }
