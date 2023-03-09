@@ -46,15 +46,24 @@ const Login = () => {
         progress: undefined,
         theme: 'colored',
       })
-      // setLoginLoadingShow(!loginLoadingShow)
+      setLoginLoadingShow(!loginLoadingShow)
       console.log('Logged in successfully')
       localStorage.setItem('session', JSON.stringify(data))
-      // window.location.reload()
       navigate('/')
     }
 
     const onFailure = (error) => {
       toggleAlert()
+      toast.error(`Login failed ${error && error.response?.data?.detail}`, {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
       console.log('Login failed.' + error && error.response)
     }
     axiosPublic.post('/v1/user/login/', payload).then(onSuccess).catch(onFailure)
