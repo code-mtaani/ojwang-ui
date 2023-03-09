@@ -11,8 +11,7 @@ const Profile = () =>{
   const user_uid = getUser_uid()
   useEffect(() => {
     const getUserProfile = async() => {
-      const response = await axiosPrivate.get( `https://cbk-bonds.p.rapidapi.com/user/${user_uid}` )
-      // const response = await axiosPrivate.get( `v1/user/${user_uid}` )
+      const response = await axiosPrivate.get( `https://cbk-bonds.p.rapidapi.com/user/${user_uid}/` )
       const result = await response.data
       console.log(result)
     }
