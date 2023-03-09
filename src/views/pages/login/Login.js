@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -19,6 +20,7 @@ import { axiosPublic } from 'src/utils/axiosPublic'
 // import { useDispatch, useSelector } from 'react-redux'
 
 const Login = () => {
+  const navigate = useNavigate()
   const [loginLoadingShow, setLoginLoadingShow] = useState(false)
   const [loginErrorMessageShow, setLoginErrorMessageShow] = useState(false)
   const [email, setEmail] = useState('')
@@ -30,14 +32,25 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setLoginLoadingShow(!loginLoadingShow)
+    // setLoginLoadingShow(!loginLoadingShow)
     const payload = JSON.stringify({ email, password })
 
     const onSuccess = ({ data }) => {
-      setLoginLoadingShow(!loginLoadingShow)
+      toast.success('Login successful', {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+      // setLoginLoadingShow(!loginLoadingShow)
       console.log('Logged in successfully')
       localStorage.setItem('session', JSON.stringify(data))
-      window.location.reload()
+      // window.location.reload()
+      navigate('/')
     }
 
     const onFailure = (error) => {
