@@ -8,6 +8,7 @@ import {
   CCardGroup,
   CCol,
   CContainer,
+  CSpinner,
   CForm,
   CFormInput,
   CInputGroup,
@@ -26,13 +27,11 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const toggleAlert = () => {
-    setLoginErrorMessageShow(!loginErrorMessageShow)
-  }
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // setLoginLoadingShow(!loginLoadingShow)
+    setLoginLoadingShow(true)
     const payload = JSON.stringify({ email, password })
 
     const onSuccess = ({ data }) => {
@@ -46,14 +45,14 @@ const Login = () => {
         progress: undefined,
         theme: 'colored',
       })
-      setLoginLoadingShow(!loginLoadingShow)
+      setLoginLoadingShow(false)
       console.log('Logged in successfully')
       localStorage.setItem('session', JSON.stringify(data))
       navigate('/')
     }
 
     const onFailure = (error) => {
-      toggleAlert()
+      setLoginLoadingShow(false)
       toast.error(`Login failed ${error && error.response?.data?.detail}`, {
         position: 'top-right',
         autoClose: 1200,
@@ -107,7 +106,11 @@ const Login = () => {
                     <CRow>
                       <CCol xs={6}>
                         <CButton type="submit" color="primary" className="px-4">
-                          Login
+                          {loginLoadingShow ? (
+                            <CSpinner component="span" size="sm" aria-hidden="true" />
+                          ) : (
+                            'Login'
+                          )}
                         </CButton>
                       </CCol>
                       <CCol xs={6} className="text-right">
