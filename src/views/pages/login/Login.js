@@ -23,7 +23,6 @@ import { axiosPublic } from 'src/utils/axiosPublic'
 const Login = () => {
   const navigate = useNavigate()
   const [loginLoadingShow, setLoginLoadingShow] = useState(false)
-  const [loginErrorMessageShow, setLoginErrorMessageShow] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
