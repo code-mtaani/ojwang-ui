@@ -49,7 +49,6 @@ const Login = () => {
     }
 
     const onFailure = (error) => {
-      console.log(Boolean, error.response.status)
       setLoginLoadingShow(false)
       if (error?.response?.status === 401) {
         setLoginErrorMessage('Login Failed - wrong credentials supplied')
