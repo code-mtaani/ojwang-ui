@@ -25,6 +25,7 @@ const Login = () => {
   const [loginLoadingShow, setLoginLoadingShow] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loginErrorMessage, setLoginErrorMessage] = useState('Failed to Login')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -48,8 +49,14 @@ const Login = () => {
     }
 
     const onFailure = (error) => {
+      console.log(Boolean, error.response.status)
       setLoginLoadingShow(false)
-      toast.error(`Login failed ${error && error.response?.data?.detail}`, {
+      if (error?.response?.status === 401) {
+        setLoginErrorMessage('Login Failed - wrong credentials supplied')
+      } else {
+        setLoginErrorMessage('Failed to Login')
+      }
+      toast.error(`${error && loginErrorMessage}`, {
         position: 'top-right',
         autoClose: 1200,
         hideProgressBar: true,
@@ -59,7 +66,6 @@ const Login = () => {
         progress: undefined,
         theme: 'colored',
       })
-      console.log('Login failed.' + error && error.response)
     }
     axiosPublic.post('/v1/user/login/', payload).then(onSuccess).catch(onFailure)
   }
