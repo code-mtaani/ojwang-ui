@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -7,6 +8,7 @@ import {
   CCardGroup,
   CCol,
   CContainer,
+  CSpinner,
   CForm,
   CFormInput,
   CInputGroup,
@@ -19,30 +21,50 @@ import { axiosPublic } from 'src/utils/axiosPublic'
 // import { useDispatch, useSelector } from 'react-redux'
 
 const Login = () => {
+  const navigate = useNavigate()
   const [loginLoadingShow, setLoginLoadingShow] = useState(false)
-  const [loginErrorMessageShow, setLoginErrorMessageShow] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  const toggleAlert = () => {
-    setLoginErrorMessageShow(!loginErrorMessageShow)
-  }
+  const [loginErrorMessage, setLoginErrorMessage] = useState('Failed to Login')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setLoginLoadingShow(!loginLoadingShow)
+    setLoginLoadingShow(true)
     const payload = JSON.stringify({ email, password })
 
     const onSuccess = ({ data }) => {
-      setLoginLoadingShow(!loginLoadingShow)
-      console.log('Logged in successfully')
+      toast.success('Login successful', {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+      setLoginLoadingShow(false)
       localStorage.setItem('session', JSON.stringify(data))
-      window.location.reload()
+      navigate('/')
     }
 
     const onFailure = (error) => {
-      toggleAlert()
-      console.log('Login failed.' + error && error.response)
+      setLoginLoadingShow(false)
+      if (error?.response?.status === 401) {
+        setLoginErrorMessage('Login Failed - wrong credentials supplied')
+      } else {
+        setLoginErrorMessage('Failed to Login')
+      }
+      toast.error(`${error && loginErrorMessage}`, {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
     }
     axiosPublic.post('/v1/user/login/', payload).then(onSuccess).catch(onFailure)
   }
@@ -85,7 +107,11 @@ const Login = () => {
                     <CRow>
                       <CCol xs={6}>
                         <CButton type="submit" color="primary" className="px-4">
-                          Login
+                          {loginLoadingShow ? (
+                            <CSpinner component="span" size="sm" aria-hidden="true" />
+                          ) : (
+                            'Login'
+                          )}
                         </CButton>
                       </CCol>
                       <CCol xs={6} className="text-right">
