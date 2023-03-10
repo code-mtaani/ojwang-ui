@@ -27,8 +27,6 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoginLoadingShow(true)
@@ -46,7 +44,6 @@ const Login = () => {
         theme: 'colored',
       })
       setLoginLoadingShow(false)
-      console.log('Logged in successfully')
       localStorage.setItem('session', JSON.stringify(data))
       navigate('/')
     }
