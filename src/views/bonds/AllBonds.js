@@ -1,10 +1,23 @@
 import { cilPlus } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-import { CCard, CCardBody, CCardHeader, CCol, CRow, CButton, CCardTitle } from '@coreui/react'
-import React from 'react'
+import { CCard, CCardBody, CCardHeader, CCol, CRow, CButton } from '@coreui/react'
+import React, { useEffect, useState } from 'react'
+import { axiosPrivate } from 'src/utils/axiosPrivate'
 import BondsTable from './BondsTable'
 
 const Bonds = () => {
+  const [bonds, setBonds] = useState({})
+
+  const fetchBonds = () => {
+    axiosPrivate.get('v1/bond/').then((response) => {
+      setBonds(response.data)
+    })
+  }
+
+  useEffect(() => {
+    fetchBonds()
+  }, [setBonds])
+
   return (
     <>
       <CRow>
@@ -20,7 +33,7 @@ const Bonds = () => {
             </CCardHeader>
             <CCardBody>
               {/* <CCardTitle>Bonds</CCardTitle> */}
-              <BondsTable></BondsTable>
+              <BondsTable bonds={bonds}></BondsTable>
             </CCardBody>
           </CCard>
         </CCol>
