@@ -8,7 +8,7 @@ import { currencyFormatter, dateFormatter } from 'src/utils/common'
 
 const renderDetailsButton = (params) => {
   return (
-    <ComponentRBAC allowedRoles={['admin',]}>
+    <ComponentRBAC allowedRoles={['admin']}>
       <strong>
         <CButton
           variant="outline"
