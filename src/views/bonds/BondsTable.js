@@ -14,7 +14,6 @@ const renderDetailsButton = (params) => {
           variant="outline"
           color="primary"
           size="sm"
-          // style={{ marginLeft: 16 }}
           onClick={() => {
             alert(params.row.id)
           }}
@@ -27,7 +26,6 @@ const renderDetailsButton = (params) => {
 }
 
 export default function BondsTable(props) {
-  console.log(props.bonds)
   const columns = [
     { field: 'issue', headerName: 'Issue', flex: 1, minWidth: 130 },
     { field: 'issuer', headerName: 'Issuer', flex: 1.5, minWidth: 200 },
@@ -45,15 +43,6 @@ export default function BondsTable(props) {
       sortable: false,
       renderCell: renderDetailsButton,
     },
-    // {
-    //   cell: 'actions',
-    //   headerName: 'Actions',
-    //   // description: 'This column has a value getter and is not sortable.',
-    //   sortable: false,
-    //   filterable: false,
-    //   width: 130,
-    //   // valueGetter: (params) => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    // },
   ]
 
   const bonds = Array.from(props.bonds)
@@ -93,7 +82,6 @@ export default function BondsTable(props) {
           },
         },
       }}
-      // pageSize={5}
       rowsPerPageOptions={[5]}
       autoHeight={true}
       pageSizeOptions={[5, 10, 25, 100]}

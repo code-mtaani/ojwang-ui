@@ -32,7 +32,6 @@ const Bonds = () => {
               </span>
             </CCardHeader>
             <CCardBody>
-              {/* <CCardTitle>Bonds</CCardTitle> */}
               <BondsTable bonds={bonds}></BondsTable>
             </CCardBody>
           </CCard>
