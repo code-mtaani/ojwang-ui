@@ -1,8 +1,7 @@
 import jwt_decode from 'jwt-decode'
+import { getToken } from './getToken'
 
-const session = JSON.parse(localStorage.getItem('session'))
-const accessToken = session.access
-
+const accessToken = getToken()
 // get user id from token and return it
 
 export const userUid = () => {

@@ -1,4 +1,5 @@
 import { axiosPrivate } from './axiosPrivate'
+import { getToken } from './getToken'
 import jwt_decode from 'jwt-decode'
 
 export const isLoggedIn = () => {
@@ -38,14 +39,7 @@ export const getLoggedInUserRoles = () => {
   return decodedToken.permissions
 }
 
-export const getToken = () => {
-  const session = JSON.parse(localStorage.getItem('session'))
-  if (session?.access) {
-    return session.access
-  }
-
-  return false
-}
+// getToken was here
 
 export const checkAccess = (permittedRoles, userRoles) => {
   return permittedRoles.some((v) => userRoles.includes(v))
