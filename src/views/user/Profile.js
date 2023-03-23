@@ -11,7 +11,6 @@ const Profile = () => {
   const getUser = async () => {
     const res = await axiosPrivate.get(`/v1/user/${userUid()}/`)
     setUserDetails(res.data)
-    console.log(res.data)
   }
   // initials = userDetails.first_name.substring(0,1).toUpperCase() + userDetails.last_name.substring(0,1).toUpperCase()
   useEffect(() => {
@@ -33,9 +32,6 @@ const Profile = () => {
             <p className="text-muted mb-1">{userDetails.email}</p>
             <p className="text-muted mb-4">User Role</p>
             <div className="d-flex justify-content-center mb-2">
-              <button type="button" className="btn btn-outline-danger shadow">
-                Delete Profile
-              </button>
               <button type="button" className="btn btn-outline-primary ms-1 shadow">
                 Edit Profile
               </button>
@@ -99,7 +95,6 @@ const Profile = () => {
               <CCol className="col-sm-9">
                 <p className="text-muted mb-1">{userDetails.date_of_birth} </p>
               </CCol>
-              {/* <hr /> */}
             </CRow>
           </CCardBody>
         </CCard>

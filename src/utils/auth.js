@@ -1,5 +1,6 @@
 import { axiosPrivate } from './axiosPrivate'
 import { getToken } from './getToken'
+import { toast } from 'react-toastify'
 import jwt_decode from 'jwt-decode'
 
 export const isLoggedIn = () => {
@@ -17,12 +18,12 @@ export const logout = () => {
 
   const onSuccess = ({ data }) => {
     localStorage.removeItem('session')
-    console.log('successfully logged out')
-    window.location.reload()
+    toast.success('successfully logged out')
+    window.location.replace('/login')
   }
 
   const onFailure = (error) => {
-    console.log('Logout request failed.' + error && error.response)
+    toast.error('Logout request failed.' + error && error.response)
     localStorage.removeItem('session')
     window.location.reload()
   }
