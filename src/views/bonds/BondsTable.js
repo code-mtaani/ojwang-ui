@@ -5,27 +5,62 @@ import { CButton } from '@coreui/react'
 import ComponentRBAC from 'src/utils/ComponentRBAC'
 import PropTypes from 'prop-types'
 import { currencyFormatter, dateFormatter } from 'src/utils/common'
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Input,
+  Label,
+  Form,
+  FormGroup,
+} from 'reactstrap'
 
-const renderDetailsButton = (params) => {
-  return (
-    <ComponentRBAC allowedRoles={['admin']}>
-      <strong>
-        <CButton
-          variant="outline"
-          color="primary"
-          size="sm"
-          onClick={() => {
-            alert(params.row.id)
-          }}
-        >
-          Edit
-        </CButton>
-      </strong>
-    </ComponentRBAC>
-  )
-}
+// const renderDetailsButton = (params) => {
+//   return (
+//     <ComponentRBAC allowedRoles={['admin']}>
+//       <strong>
+//         <CButton
+//           variant="outline"
+//           color="primary"
+//           size="sm"
+//           onClick={() => {
+//             alert(String(params.row.issue))
+//             toggle
+//           }}
+//         >
+//           Edit
+//         </CButton>
+//       </strong>
+//     </ComponentRBAC>
+//   )
+// }
 
 export default function BondsTable(props) {
+  const [modal, setModal] = React.useState(false)
+
+  const toggle = () => setModal(!modal)
+  const renderDetailsButton = (params) => {
+    return (
+      <ComponentRBAC allowedRoles={['admin']}>
+        <strong>
+          <CButton
+            variant="outline"
+            color="primary"
+            size="sm"
+            onClick={() => {
+              alert(String(params.row.issue))
+              toggle()
+            }}
+          >
+            Edit
+          </CButton>
+        </strong>
+      </ComponentRBAC>
+    )
+  }
+
   const columns = [
     { field: 'issue', headerName: 'Issue', flex: 1, minWidth: 130 },
     { field: 'issuer', headerName: 'Issuer', flex: 1.5, minWidth: 200 },
@@ -69,25 +104,57 @@ export default function BondsTable(props) {
     })
   })
 
+  const renderBondModal = () => {
+    return (
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+        <ModalBody>Lorem</ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>
+            Do Something
+          </Button>{' '}
+          <Button color="secondary" onClick={toggle}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+    )
+  }
+
   return (
-    <DataGrid
-      sx={{ border: 0 }}
-      css={styled}
-      rows={rows}
-      columns={columns}
-      initialState={{
-        pagination: {
-          paginationModel: {
-            pageSize: 5,
+    <>
+      <div>
+        <Modal isOpen={modal} toggle={toggle}>
+          <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+          <ModalBody>Lorem</ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={toggle}>
+              Do Something
+            </Button>{' '}
+            <Button color="secondary" onClick={toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+      <DataGrid
+        sx={{ border: 0 }}
+        css={styled}
+        rows={rows}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
           },
-        },
-      }}
-      rowsPerPageOptions={[5]}
-      autoHeight={true}
-      pageSizeOptions={[5, 10, 25, 100]}
-      pagination
-      // checkboxSelection
-    />
+        }}
+        rowsPerPageOptions={[5]}
+        autoHeight={true}
+        pageSizeOptions={[5, 10, 25, 100]}
+        pagination
+      />
+    </>
   )
 }
 
