@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Button, Input, Label, Form, FormGroup } from 'reactstrap'
+import { toast } from 'react-toastify'
 import PropTypes from 'prop-types'
+import { axiosPrivate } from 'src/utils/axiosPrivate'
 
 function BondsForm(props) {
   const [issue, setIssue] = useState(props.issue)
@@ -19,9 +21,56 @@ function BondsForm(props) {
   const [price_quote, setPrice_quote] = useState(props.price_quote)
   const [dirty_price, setDirty_price] = useState(props.dirty_price)
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const payload = {
+      issue,
+      issuer,
+      type,
+      amount,
+      value_date,
+      initial_coupon_payment_date,
+      redemption_date,
+      coupon_rate,
+      tax_rate,
+      tenor,
+      maturity,
+      price_quote,
+      dirty_price,
+    }
+
+    const onSuccess = ({ data }) => {
+      toast.success('Successfully submitted new bond', {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+      props.onSave()
+    }
+
+    const onFailure = (error) => {
+      toast.error('An error occured when saving the bond', {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+    }
+    axiosPrivate.post('/v1/bond/', payload).then(onSuccess).catch(onFailure)
+  }
+
   return (
     <div>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for="issue">Issue*</Label>
           <Input
@@ -153,7 +202,7 @@ function BondsForm(props) {
             onChange={(e) => setDirty_price(e.target.value)}
           />
         </FormGroup>
-        <Button type="submit" onClick={''}>
+        <Button type="submit" onClick={() => handleSubmit()}>
           Submit
         </Button>
       </Form>
@@ -164,6 +213,7 @@ function BondsForm(props) {
 BondsForm.propTypes = {
   className: PropTypes.string,
   toggle: PropTypes.func,
+  onSave: PropTypes.func,
   issue: PropTypes.string,
   issuer: PropTypes.string,
   type: PropTypes.string,

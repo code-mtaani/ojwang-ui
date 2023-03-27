@@ -18,6 +18,11 @@ const Bonds = () => {
     })
   }
 
+  const saveCompleteHandler = () => {
+    toggle()
+    fetchBonds()
+  }
+
   useEffect(() => {
     fetchBonds()
   }, [setBonds])
@@ -28,7 +33,7 @@ const Bonds = () => {
         <Modal backdrop={'static'} isOpen={modal} toggle={toggle}>
           <ModalHeader toggle={toggle}>New Bond</ModalHeader>
           <ModalBody>
-            <BondsForm toggle={toggle}></BondsForm>
+            <BondsForm onSave={saveCompleteHandler} toggle={toggle}></BondsForm>
           </ModalBody>
         </Modal>
       </div>
