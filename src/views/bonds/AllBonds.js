@@ -35,7 +35,7 @@ const Bonds = () => {
   return (
     <>
       <div>
-        <Modal isOpen={modal} toggle={toggle}>
+        <Modal backdrop={'static'} isOpen={modal} toggle={toggle}>
           <ModalHeader toggle={toggle}>New Bond</ModalHeader>
           <ModalBody>
             <BondsForm toggle={toggle}></BondsForm>

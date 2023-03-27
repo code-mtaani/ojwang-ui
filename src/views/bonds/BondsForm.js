@@ -103,7 +103,9 @@ function BondsForm(props) {
           <Label for="dirty_price">dirty_price</Label>
           <Input id="dirty_price" name="dirty_price" placeholder="dirty_price" type="number" />
         </FormGroup>
-        <Button onClick={() => props.toggle()}> Submit </Button>
+        <Button type="submit" onClick={''}>
+          Submit
+        </Button>
       </Form>
     </div>
   )
