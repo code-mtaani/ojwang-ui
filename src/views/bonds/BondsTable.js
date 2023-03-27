@@ -5,37 +5,7 @@ import { CButton } from '@coreui/react'
 import ComponentRBAC from 'src/utils/ComponentRBAC'
 import PropTypes from 'prop-types'
 import { currencyFormatter, dateFormatter } from 'src/utils/common'
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Input,
-  Label,
-  Form,
-  FormGroup,
-} from 'reactstrap'
-
-// const renderDetailsButton = (params) => {
-//   return (
-//     <ComponentRBAC allowedRoles={['admin']}>
-//       <strong>
-//         <CButton
-//           variant="outline"
-//           color="primary"
-//           size="sm"
-//           onClick={() => {
-//             alert(String(params.row.issue))
-//             toggle
-//           }}
-//         >
-//           Edit
-//         </CButton>
-//       </strong>
-//     </ComponentRBAC>
-//   )
-// }
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 export default function BondsTable(props) {
   const [modal, setModal] = React.useState(false)
@@ -103,23 +73,6 @@ export default function BondsTable(props) {
       coupon_payment_dates: bond.coupon_payment_dates,
     })
   })
-
-  const renderBondModal = () => {
-    return (
-      <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-        <ModalBody>Lorem</ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={toggle}>
-            Do Something
-          </Button>{' '}
-          <Button color="secondary" onClick={toggle}>
-            Cancel
-          </Button>
-        </ModalFooter>
-      </Modal>
-    )
-  }
 
   return (
     <>

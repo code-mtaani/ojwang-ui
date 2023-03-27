@@ -4,17 +4,7 @@ import { CCard, CCardBody, CCardHeader, CCol, CRow, CButton } from '@coreui/reac
 import React, { useEffect, useState } from 'react'
 import { axiosPrivate } from 'src/utils/axiosPrivate'
 import BondsTable from './BondsTable'
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Input,
-  Label,
-  Form,
-  FormGroup,
-} from 'reactstrap'
+import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 import BondsForm from './BondsForm'
 
 const Bonds = () => {
