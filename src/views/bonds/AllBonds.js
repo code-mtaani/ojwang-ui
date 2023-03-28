@@ -49,7 +49,7 @@ const Bonds = () => {
               </span>
             </CCardHeader>
             <CCardBody>
-              <BondsTable bonds={bonds}></BondsTable>
+              <BondsTable onSave={fetchBonds} bonds={bonds}></BondsTable>
             </CCardBody>
           </CCard>
         </CCol>

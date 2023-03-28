@@ -4,11 +4,12 @@ import { styled } from '@mui/material/styles'
 import { CButton } from '@coreui/react'
 import ComponentRBAC from 'src/utils/ComponentRBAC'
 import PropTypes from 'prop-types'
-import { currencyFormatter, dateFormatter } from 'src/utils/common'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Modal, ModalHeader, ModalBody } from 'reactstrap'
+import BondsForm from './BondsForm'
 
 export default function BondsTable(props) {
   const [modal, setModal] = React.useState(false)
+  const [editBond, setEditBond] = React.useState('')
 
   const toggle = () => setModal(!modal)
   const renderDetailsButton = (params) => {
@@ -20,7 +21,7 @@ export default function BondsTable(props) {
             color="primary"
             size="sm"
             onClick={() => {
-              alert(String(params.row.issue))
+              setEditBond(params.row)
               toggle()
             }}
           >
@@ -61,13 +62,18 @@ export default function BondsTable(props) {
       issuer: bond.issuer,
       type: bond.type,
       price_quote: bond.price_quote,
-      value_date: dateFormatter.format(new Date(bond.value_date)),
-      initial_coupon_payment_date: dateFormatter.format(new Date(bond.initial_coupon_payment_date)),
-      redemption_date: dateFormatter.format(new Date(bond.redemption_date)),
-      amount: currencyFormatter.format(bond.amount),
-      dirty_price: currencyFormatter.format(bond.dirty_price),
-      coupon_rate: bond.coupon_rate + '%',
-      tax_rate: bond.tax_rate + '%',
+      // value_date: dateFormatter.format(new Date(bond.value_date)),
+      value_date: bond.value_date,
+      // initial_coupon_payment_date: dateFormatter.format(new Date(bond.initial_coupon_payment_date)),
+      initial_coupon_payment_date: bond.initial_coupon_payment_date,
+      // redemption_date: dateFormatter.format(new Date(bond.redemption_date)),
+      redemption_date: bond.redemption_date,
+      // amount: currencyFormatter.format(bond.amount),
+      amount: bond.amount,
+      // dirty_price: currencyFormatter.format(bond.dirty_price),
+      dirty_price: bond.dirty_price,
+      coupon_rate: bond.coupon_rate,
+      tax_rate: bond.tax_rate,
       tenor: bond.tenor,
       maturity: bond.maturity,
       coupon_payment_dates: bond.coupon_payment_dates,
@@ -77,17 +83,11 @@ export default function BondsTable(props) {
   return (
     <>
       <div>
-        <Modal isOpen={modal} toggle={toggle}>
-          <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-          <ModalBody>Lorem</ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={toggle}>
-              Do Something
-            </Button>{' '}
-            <Button color="secondary" onClick={toggle}>
-              Cancel
-            </Button>
-          </ModalFooter>
+        <Modal backdrop={'static'} isOpen={modal} toggle={toggle}>
+          <ModalHeader toggle={toggle}>New Bond</ModalHeader>
+          <ModalBody>
+            <BondsForm onSave={props.onSave} toggle={toggle} {...editBond}></BondsForm>
+          </ModalBody>
         </Modal>
       </div>
       <DataGrid
@@ -113,4 +113,5 @@ export default function BondsTable(props) {
 
 BondsTable.propTypes = {
   bonds: PropTypes.any,
+  onSave: PropTypes.func,
 }

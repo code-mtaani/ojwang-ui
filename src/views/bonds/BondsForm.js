@@ -20,6 +20,7 @@ function BondsForm(props) {
   const [maturity, setMaturity] = useState(props.maturity)
   const [price_quote, setPrice_quote] = useState(props.price_quote)
   const [dirty_price, setDirty_price] = useState(props.dirty_price)
+  const [id] = useState(props.id)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -68,12 +69,61 @@ function BondsForm(props) {
     axiosPrivate.post('/v1/bond/', payload).then(onSuccess).catch(onFailure)
   }
 
+  const handleEdit = async (e) => {
+    e.preventDefault()
+    const payload = {
+      issue,
+      issuer,
+      type,
+      amount,
+      value_date,
+      initial_coupon_payment_date,
+      redemption_date,
+      coupon_rate,
+      tax_rate,
+      tenor,
+      maturity,
+      price_quote,
+      dirty_price,
+    }
+
+    const onSuccess = ({ data }) => {
+      toast.success('Successfully submitted edited bond', {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+      props.toggle()
+      props.onSave()
+    }
+
+    const onFailure = (error) => {
+      toast.error('An error occured when saving the bond', {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+    }
+    axiosPrivate.patch(`/v1/bond/${id}`, payload).then(onSuccess).catch(onFailure)
+  }
+
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={props.id == null ? handleSubmit : handleEdit}>
         <FormGroup>
           <Label for="issue">Issue*</Label>
           <Input
+            defaultValue={issue}
             id="issue"
             name="issue"
             placeholder="Issue"
@@ -85,6 +135,7 @@ function BondsForm(props) {
         <FormGroup>
           <Label for="issuer">Issuer</Label>
           <Input
+            defaultValue={issuer}
             id="issuer"
             name="issuer"
             placeholder="Issuer"
@@ -96,6 +147,7 @@ function BondsForm(props) {
         <FormGroup>
           <Label for="type">Type</Label>
           <Input
+            defaultValue={type}
             id="type"
             name="type"
             placeholder="Type"
@@ -110,6 +162,7 @@ function BondsForm(props) {
         <FormGroup>
           <Label for="amount">Amount</Label>
           <Input
+            defaultValue={amount}
             id="amount"
             name="amount"
             placeholder="Amount"
@@ -120,6 +173,7 @@ function BondsForm(props) {
         <FormGroup>
           <Label for="value_date">Value date</Label>
           <Input
+            defaultValue={value_date}
             id="value_date"
             name="value_date"
             placeholder="Value date"
@@ -131,6 +185,7 @@ function BondsForm(props) {
         <FormGroup>
           <Label for="initial_coupon_payment_date">Initial interest payment date</Label>
           <Input
+            defaultValue={initial_coupon_payment_date}
             id="initial_coupon_payment_date"
             name="initial_coupon_payment_date"
             placeholder="Initial interest payment date"
@@ -142,6 +197,7 @@ function BondsForm(props) {
         <FormGroup>
           <Label for="redemption_date">Redemption date</Label>
           <Input
+            defaultValue={redemption_date}
             id="redemption_date"
             name="redemption_date"
             placeholder="Redemption date"
@@ -153,6 +209,7 @@ function BondsForm(props) {
         <FormGroup>
           <Label for="coupon_rate">Coupon rate</Label>
           <Input
+            defaultValue={coupon_rate}
             id="coupon_rate"
             name="coupon_rate"
             placeholder="Coupon rate"
@@ -163,6 +220,7 @@ function BondsForm(props) {
         <FormGroup>
           <Label for="tax_rate">Tax rate</Label>
           <Input
+            defaultValue={tax_rate}
             id="tax_rate"
             name="tax_rate"
             placeholder="Tax rate"
@@ -173,6 +231,7 @@ function BondsForm(props) {
         <FormGroup>
           <Label for="tenor">Tenor</Label>
           <Input
+            defaultValue={tenor}
             id="tenor"
             name="tenor"
             placeholder="Tenor"
@@ -183,6 +242,7 @@ function BondsForm(props) {
         <FormGroup>
           <Label for="maturity">Maturity</Label>
           <Input
+            defaultValue={maturity}
             id="maturity"
             name="maturity"
             placeholder="Maturity"
@@ -193,6 +253,7 @@ function BondsForm(props) {
         <FormGroup>
           <Label for="price_quote">Price quote</Label>
           <Input
+            defaultValue={price_quote}
             id="price_quote"
             name="price_quote"
             placeholder="Price quote"
@@ -203,6 +264,7 @@ function BondsForm(props) {
         <FormGroup>
           <Label for="dirty_price">Dirty price</Label>
           <Input
+            defaultValue={dirty_price}
             id="dirty_price"
             name="dirty_price"
             placeholder="Dirty price"
@@ -211,7 +273,7 @@ function BondsForm(props) {
           />
         </FormGroup>
         <Button type="submit" onClick={() => handleSubmit()}>
-          Submit
+          {props.id == null ? 'Submit' : 'Edit'}
         </Button>
       </Form>
     </div>
@@ -226,15 +288,16 @@ BondsForm.propTypes = {
   issuer: PropTypes.string,
   type: PropTypes.string,
   amount: PropTypes.number,
-  value_date: PropTypes.instanceOf(Date),
-  initial_coupon_payment_date: PropTypes.instanceOf(Date),
-  redemption_date: PropTypes.instanceOf(Date),
+  value_date: PropTypes.string,
+  initial_coupon_payment_date: PropTypes.string,
+  redemption_date: PropTypes.string,
   coupon_rate: PropTypes.number,
   tax_rate: PropTypes.number,
   tenor: PropTypes.number,
   maturity: PropTypes.number,
   price_quote: PropTypes.string,
   dirty_price: PropTypes.number,
+  id: PropTypes.string,
 }
 
 export default BondsForm
