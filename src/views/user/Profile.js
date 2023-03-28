@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { userUid } from 'src/utils/userUid'
 import { axiosPrivate } from 'src/utils/axiosPrivate'
 import { CCard, CAvatar, CRow, CCol, CCardBody } from '@coreui/react'
 import avatarImg from '../../assets/images/avatars/6.jpg'
+import { getUserUid } from 'src/utils/auth'
 
 const Profile = () => {
   const [userDetails, setUserDetails] = useState({ email: '', first_name: '', last_name: '' })
   // let initials
   // get user by user_uid
   const getUser = async () => {
-    const res = await axiosPrivate.get(`/v1/user/${userUid()}/`)
+    const res = await axiosPrivate.get(`/v1/user/${getUserUid()}/`)
     setUserDetails(res.data)
   }
   // initials = userDetails.first_name.substring(0,1).toUpperCase() + userDetails.last_name.substring(0,1).toUpperCase()

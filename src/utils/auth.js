@@ -1,5 +1,4 @@
 import { axiosPrivate } from './axiosPrivate'
-import { getToken } from './getToken'
 import { toast } from 'react-toastify'
 import jwt_decode from 'jwt-decode'
 
@@ -23,7 +22,7 @@ export const logout = () => {
   }
 
   const onFailure = (error) => {
-    toast.error('Logout request failed.' + error && error.response)
+    // TODO: log this event
     localStorage.removeItem('session')
     window.location.reload()
   }
@@ -40,7 +39,24 @@ export const getLoggedInUserRoles = () => {
   return decodedToken.permissions
 }
 
-// getToken was here
+export const getToken = () => {
+  const session = JSON.parse(localStorage.getItem('session'))
+  if (session?.access) {
+    return session.access
+  }
+
+  return false
+}
+
+export const getUserUid = () => {
+  var authToken = getToken()
+  if (!authToken) {
+    return
+  }
+
+  var decodedToken = jwt_decode(authToken)
+  return decodedToken.user_uid
+}
 
 export const checkAccess = (permittedRoles, userRoles) => {
   return permittedRoles.some((v) => userRoles.includes(v))
