@@ -89,6 +89,7 @@ function BondsForm(props) {
             name="issuer"
             placeholder="Issuer"
             type="text"
+            required
             onChange={(e) => setIssuer(e.target.value)}
           />
         </FormGroup>
@@ -98,106 +99,113 @@ function BondsForm(props) {
             id="type"
             name="type"
             placeholder="Type"
-            type="text"
+            type="select"
+            required
             onChange={(e) => setType(e.target.value)}
-          />
+          >
+            <option value="FIXED">FIXED</option>
+            <option value="INFRASTRUCTURE">INFRASTRUCTURE</option>
+          </Input>
         </FormGroup>
         <FormGroup>
-          <Label for="amount">amount</Label>
+          <Label for="amount">Amount</Label>
           <Input
             id="amount"
             name="amount"
-            placeholder="amount"
+            placeholder="Amount"
             type="number"
             onChange={(e) => setAmount(e.target.value)}
           />
         </FormGroup>
         <FormGroup>
-          <Label for="value_date">value_date</Label>
+          <Label for="value_date">Value date</Label>
           <Input
             id="value_date"
             name="value_date"
-            placeholder="value_date"
+            placeholder="Value date"
             type="date"
+            required
             onChange={(e) => setValue_date(e.target.value)}
           />
         </FormGroup>
         <FormGroup>
-          <Label for="initial_coupon_payment_date">initial_coupon_payment_date</Label>
+          <Label for="initial_coupon_payment_date">Initial interest payment date</Label>
           <Input
             id="initial_coupon_payment_date"
             name="initial_coupon_payment_date"
-            placeholder="initial_coupon_payment_date"
+            placeholder="Initial interest payment date"
             type="date"
+            required
             onChange={(e) => setInitial_coupon_payment_date(e.target.value)}
           />
         </FormGroup>
         <FormGroup>
-          <Label for="redemption_date">redemption_date</Label>
+          <Label for="redemption_date">Redemption date</Label>
           <Input
             id="redemption_date"
             name="redemption_date"
-            placeholder="redemption_date"
+            placeholder="Redemption date"
             type="date"
+            required
             onChange={(e) => setRedemption_date(e.target.value)}
           />
         </FormGroup>
         <FormGroup>
-          <Label for="coupon_rate">coupon_rate</Label>
+          <Label for="coupon_rate">Coupon rate</Label>
           <Input
             id="coupon_rate"
             name="coupon_rate"
-            placeholder="coupon_rate"
+            placeholder="Coupon rate"
             type="number"
             onChange={(e) => setCoupon_rate(e.target.value)}
           />
         </FormGroup>
         <FormGroup>
-          <Label for="tax_rate">tax_rate</Label>
+          <Label for="tax_rate">Tax rate</Label>
           <Input
             id="tax_rate"
             name="tax_rate"
-            placeholder="tax_rate"
+            placeholder="Tax rate"
             type="number"
             onChange={(e) => setTax_rate(e.target.value)}
           />
         </FormGroup>
         <FormGroup>
-          <Label for="tenor">tenor</Label>
+          <Label for="tenor">Tenor</Label>
           <Input
             id="tenor"
             name="tenor"
-            placeholder="tenor"
+            placeholder="Tenor"
             type="number"
             onChange={(e) => setTenor(e.target.value)}
           />
         </FormGroup>
         <FormGroup>
-          <Label for="maturity">maturity</Label>
+          <Label for="maturity">Maturity</Label>
           <Input
             id="maturity"
             name="maturity"
-            placeholder="maturity"
+            placeholder="Maturity"
             type="number"
             onChange={(e) => setMaturity(e.target.value)}
           />
         </FormGroup>
         <FormGroup>
-          <Label for="price_quote">price_quote</Label>
+          <Label for="price_quote">Price quote</Label>
           <Input
             id="price_quote"
             name="price_quote"
-            placeholder="price_quote"
+            placeholder="Price quote"
             type="price_quote"
             onChange={(e) => setPrice_quote(e.target.value)}
           />
         </FormGroup>
         <FormGroup>
-          <Label for="dirty_price">dirty_price</Label>
+          <Label for="dirty_price">Dirty price</Label>
           <Input
             id="dirty_price"
             name="dirty_price"
-            placeholder="dirty_price"
+            placeholder="Dirty price"
             type="number"
             onChange={(e) => setDirty_price(e.target.value)}
           />
