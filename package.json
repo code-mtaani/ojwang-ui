@@ -38,6 +38,7 @@
     "chart.js": "^3.9.1",
     "classnames": "^2.3.1",
     "core-js": "^3.24.1",
+    "http-proxy-middleware": "^2.0.6",
     "jwt-decode": "^3.1.2",
     "mem": "^9.0.2",
     "prop-types": "^15.8.1",

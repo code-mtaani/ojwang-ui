@@ -2,11 +2,7 @@ import axios from 'axios'
 
 import { memoizedRefreshToken } from './refreshToken'
 
-axios.defaults.baseURL =
-  process.env.REACT_APP_OJWANG_API_HTTP_SCHEME +
-  '://' +
-  process.env.REACT_APP_OJWANG_API_BASE_URL +
-  '/api'
+axios.defaults.baseURL = `${process.env.REACT_APP_OJWANG_API_HTTP_SCHEME}://${process.env.REACT_APP_OJWANG_API_BASE_URL}/api`
 
 axios.interceptors.request.use(
   async (config) => {
