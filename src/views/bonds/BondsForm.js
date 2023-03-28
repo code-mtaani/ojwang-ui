@@ -155,6 +155,7 @@ function BondsForm(props) {
             required
             onChange={(e) => setType(e.target.value)}
           >
+            <option value="">Select type</option>
             <option value="FIXED">FIXED</option>
             <option value="INFRASTRUCTURE">INFRASTRUCTURE</option>
           </Input>
