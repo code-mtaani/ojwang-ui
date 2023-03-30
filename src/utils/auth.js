@@ -18,7 +18,7 @@ export const logout = () => {
   const onSuccess = ({ data }) => {
     localStorage.removeItem('session')
     toast.success('successfully logged out')
-    window.location.replace('/login')
+    window.location.replace('/#/login')
   }
 
   const onFailure = (error) => {
