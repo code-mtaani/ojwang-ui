@@ -24,7 +24,7 @@ const refreshTokenFn = async () => {
   } catch (error) {
     localStorage.removeItem('session')
     localStorage.removeItem('user')
-    window.location.replace('/login')
+    window.location.replace('login')
   }
 }
 
