@@ -258,9 +258,14 @@ function BondsForm(props) {
             id="price_quote"
             name="price_quote"
             placeholder="Price quote"
-            type="price_quote"
+            type="select"
             onChange={(e) => setPrice_quote(e.target.value)}
-          />
+          >
+            <option value="">Select type</option>
+            <option value="PAR">PAR</option>
+            <option value="DISCOUNTED">DISCOUNTED</option>
+            <option value="PREMIUM">PREMIUM</option>
+          </Input>
         </FormGroup>
         <FormGroup>
           <Label for="dirty_price">Dirty price</Label>
