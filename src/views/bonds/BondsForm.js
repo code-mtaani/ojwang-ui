@@ -20,6 +20,8 @@ function BondsForm(props) {
   const [maturity, setMaturity] = useState(props.maturity)
   const [price_quote, setPrice_quote] = useState(props.price_quote)
   const [dirty_price, setDirty_price] = useState(props.dirty_price)
+  const [sale_date_start, setSale_date_start] = useState(props.sale_date_start)
+  const [sale_date_end, setSale_date_end] = useState(props.sale_date_end)
   const [id] = useState(props.id)
 
   const handleSubmit = async (e) => {
@@ -38,6 +40,8 @@ function BondsForm(props) {
       maturity,
       price_quote,
       dirty_price,
+      sale_date_start,
+      sale_date_end,
     }
 
     const onSuccess = ({ data }) => {
@@ -85,6 +89,8 @@ function BondsForm(props) {
       maturity,
       price_quote,
       dirty_price,
+      sale_date_start,
+      sale_date_end,
     }
 
     const onSuccess = ({ data }) => {
@@ -208,6 +214,28 @@ function BondsForm(props) {
           />
         </FormGroup>
         <FormGroup>
+          <Label for="sale_date_start">Sale start date</Label>
+          <Input
+            defaultValue={sale_date_start}
+            id="sale_date_start"
+            name="sale_date_start"
+            placeholder="Sale start date"
+            type="date"
+            onChange={(e) => setSale_date_start(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="sale_date_end">Sale end date</Label>
+          <Input
+            defaultValue={sale_date_end}
+            id="sale_date_end"
+            name="sale_date_end"
+            placeholder="Sale end date"
+            type="date"
+            onChange={(e) => setSale_date_end(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup>
           <Label for="coupon_rate">Coupon rate</Label>
           <Input
             defaultValue={coupon_rate}
@@ -303,6 +331,8 @@ BondsForm.propTypes = {
   maturity: PropTypes.number,
   price_quote: PropTypes.string,
   dirty_price: PropTypes.number,
+  sale_date_start: PropTypes.string,
+  sale_date_end: PropTypes.string,
   id: PropTypes.string,
 }
 
