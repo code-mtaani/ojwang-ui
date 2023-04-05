@@ -72,6 +72,8 @@ export default function BondsTable(props) {
       tenor: bond.tenor,
       maturity: bond.maturity,
       coupon_payment_dates: bond.coupon_payment_dates,
+      sale_date_start: bond.sale_date_start,
+      sale_date_end: bond.sale_date_end,
     })
   })
 
