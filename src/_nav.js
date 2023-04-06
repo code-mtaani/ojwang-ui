@@ -22,29 +22,6 @@ const _nav = [
     to: '/bonds/my_bonds',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
   },
-  // {
-  //   component: CNavGroup,
-  //   name: 'Bonds',
-  //   to: '/bonds',
-  //   icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
-  //   items: [
-  //     {
-  //       component: CNavItem,
-  //       name: 'All bonds',
-  //       to: '/bonds/all_bonds',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Bonds on sale',
-  //       to: '/bonds/open',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'My bonds',
-  //       to: '/bonds/my_bonds',
-  //     },
-  //   ],
-  // },
 ]
 
 export default _nav
