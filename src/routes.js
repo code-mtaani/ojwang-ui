@@ -10,7 +10,7 @@ const UserSettings = React.lazy(() => import('./views/user/Settings'))
 const LandingPage = React.lazy(() => import('./views/pages/index/LandingPage'))
 
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
+  { path: '/', exact: true, name: 'Home'},
   { path: '/index', name: 'Landing Page', element: LandingPage },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/bonds/all_bonds', name: 'Bonds', element: Bonds },

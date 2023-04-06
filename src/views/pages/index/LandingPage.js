@@ -17,6 +17,7 @@ import {
   CRow,
 } from '@coreui/react'
 import { AppFooter } from '../../../components'
+import BlogPost from './sections/BlogSection'
 
 const LandingPage = () => {
   const [searchQuery, setSearchQuery] = useState('')
@@ -68,7 +69,7 @@ const LandingPage = () => {
             <h1>Hi there</h1>
             <p>
               Ojwang is a platform that lists all government bonds that are on sale, their portfolio and coupon payment dates.
-              
+
             </p>
             <CButton color="primary">Learn more</CButton>
           </CCol>
@@ -77,38 +78,26 @@ const LandingPage = () => {
       </CContainer>
       <CContainer className="py-5">
       <hr style={{borderTop: '1px solid #ccc', with: '20px'}} />
-  <h2 className="mb-4 text-center" style={{fontSize: '28px', fontWeight: 'bold'}}>Features</h2>
-  <CRow>
-    <CCol md={4} className="mb-4">
-      <h5 className="text-center mb-3" style={{fontSize: '24px'}}>List of Government Bonds</h5>
-      <p className="text-center" style={{fontSize: '18px'}}>View all government bonds that are currently available for sale. Stay updated with the latest bond offerings and make informed investment decisions.</p>
-    </CCol>
-    <CCol md={4} className="mb-4">
-      <h5 className="text-center mb-3" style={{fontSize: '24px'}}>Coupon Payment Dates</h5>
-      <p className="text-center" style={{fontSize: '18px'}}>Know the dates when you can expect coupon payments for the bonds in your portfolio. Plan your finances effectively and stay on top of your bond investments.</p>
-    </CCol>
-    <CCol md={4} className="mb-4">
-      <h5 className="text-center mb-3" style={{fontSize: '24px'}}>Detailed Analytics</h5>
-      <p className="text-center" style={{fontSize: '18px'}}>Get a comprehensive analysis of your bond portfolio. Track your investment performance, view historical data, and gain insights to make informed investment strategies.</p>
-    </CCol>
-        </CRow>
-        <hr style={{borderTop: '1px solid #ccc', with: '20px'}} />
-        </CContainer>
-      <CContainer fluid>
-      <h2 className="mt-5 mb-4 text-center" style={{fontSize: '28px', fontWeight: 'bold'}}>Latest Blog Posts</h2>
+      <h2 className="mb-4 text-center" style={{fontSize: '28px', fontWeight: 'bold'}}>Features</h2>
       <CRow>
-        {/* {blogData.map((post) => (
-          <CCol md={4} className="mb-4" key={post.id}>
-            <CCard className="h-100">
-              <CCardBody>
-                <h5 className="card-title mb-3 text-center" style={{fontSize: '22px', fontWeight: 'bold'}}>{post.title}</h5>
-                <p className="card-text text-center" style={{fontSize: '18px'}}>{post.excerpt}</p>
-                <CButton color="primary" block style={{fontSize: '18px'}}>Read More</CButton>
-              </CCardBody>
-            </CCard>
-          </CCol>
-        ))} */}
-      </CRow>
+        <CCol md={4} className="mb-4">
+          <h5 className="text-center mb-3" style={{fontSize: '24px'}}>List of Government Bonds</h5>
+          <p className="text-center" style={{fontSize: '18px'}}>View all government bonds that are currently available for sale. Stay updated with the latest bond offerings and make informed investment decisions.</p>
+        </CCol>
+        <CCol md={4} className="mb-4">
+          <h5 className="text-center mb-3" style={{fontSize: '24px'}}>Coupon Payment Dates</h5>
+          <p className="text-center" style={{fontSize: '18px'}}>Know the dates when you can expect coupon payments for the bonds in your portfolio. Plan your finances effectively and stay on top of your bond investments.</p>
+        </CCol>
+        <CCol md={4} className="mb-4">
+          <h5 className="text-center mb-3" style={{fontSize: '24px'}}>Detailed Analytics</h5>
+          <p className="text-center" style={{fontSize: '18px'}}>Get a comprehensive analysis of your bond portfolio. Track your investment performance, view historical data, and gain insights to make informed investment strategies.</p>
+        </CCol>
+            </CRow>
+            <hr style={{borderTop: '1px solid #ccc', with: '20px'}} />
+            </CContainer>
+          <CContainer fluid>
+          <h2 className="mt-5 mb-4 text-center" style={{fontSize: '28px', fontWeight: 'bold'}}>Latest Blog Posts</h2>
+        <BlogPost />
         </CContainer>
       <CContainer fluid className="py-5 bg-primary text-white text-center">
       <h2 className="mb-4">Ready to Get Started?</h2>
@@ -124,4 +113,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default LandingPage
