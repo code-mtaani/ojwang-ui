@@ -3,7 +3,7 @@ import React from 'react'
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Bonds = React.lazy(() => import('./views/bonds/AllBonds'))
 const OpenBonds = React.lazy(() => import('./views/bonds/OpenBonds'))
-const MyPortfolio = React.lazy(() => import('./views/bonds/MyBonds'))
+const MyPortfolio = React.lazy(() => import('./views/portfolio/MyPortfolio'))
 
 const UserProfile = React.lazy(() => import('./views/user/Profile'))
 const UserSettings = React.lazy(() => import('./views/user/Settings'))

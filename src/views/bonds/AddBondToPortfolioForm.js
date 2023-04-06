@@ -5,10 +5,11 @@ import PropTypes from 'prop-types'
 import { axiosPrivate } from 'src/utils/axiosPrivate'
 
 function AddBondToPortfolioForm(props) {
-  const [coupon_rate, setCoupon_rate] = useState(props.coupon_rate)
-  const [face_value, setFace_value] = useState(props.face_value)
-  const [dirty_price, setDirty_price] = useState(props.dirty_price)
-  const [bond_uid] = useState(props.id)
+  const [coupon_rate, setCoupon_rate] = useState(props.coupon_rate_raw)
+  const [face_value, setFace_value] = useState(props.face_value_raw)
+  const [dirty_price, setDirty_price] = useState(props.dirty_price_raw)
+  const [bond_uid] = useState(props.bond_uid)
+  const [uid] = useState(props.id)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -49,9 +50,48 @@ function AddBondToPortfolioForm(props) {
     axiosPrivate.post('/v1/user_bond/', payload).then(onSuccess).catch(onFailure)
   }
 
+  const handleEdit = async (e) => {
+    e.preventDefault()
+    const payload = {
+      coupon_rate,
+      uid,
+      face_value,
+      dirty_price,
+    }
+
+    const onSuccess = ({ data }) => {
+      toast.success('Successfully edited user bond', {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+      props.toggle()
+      props.onSave()
+    }
+
+    const onFailure = (error) => {
+      toast.error('An error occured when saving the user bond', {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+    }
+    axiosPrivate.patch(`/v1/user_bond/${uid}`, payload).then(onSuccess).catch(onFailure)
+  }
+
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={props.id === null ? handleSubmit : handleEdit}>
         <FormGroup>
           <Label for="coupon_rate">Coupon rate</Label>
           <Input
@@ -86,7 +126,7 @@ function AddBondToPortfolioForm(props) {
           />
         </FormGroup>
         <Button type="submit" onClick={() => handleSubmit()}>
-          {'Submit'}
+          {props.id === null ? 'Submit' : 'Edit'}
         </Button>
       </Form>
     </div>
@@ -97,10 +137,12 @@ AddBondToPortfolioForm.propTypes = {
   className: PropTypes.string,
   toggle: PropTypes.func,
   onSave: PropTypes.func,
-  coupon_rate: PropTypes.number,
-  face_value: PropTypes.number,
-  dirty_price: PropTypes.number,
+  coupon_rate_raw: PropTypes.number,
+  face_value_raw: PropTypes.number,
+  dirty_price_raw: PropTypes.number,
+  uid: PropTypes.string,
   id: PropTypes.string,
+  bond_uid: PropTypes.string,
 }
 
 export default AddBondToPortfolioForm
