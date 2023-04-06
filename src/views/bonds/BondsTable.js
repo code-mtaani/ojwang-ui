@@ -39,7 +39,7 @@ export default function BondsTable(props) {
           <CButton
             className="mx-1"
             variant="outline"
-            color={bondInPortfolio ? 'danger' : 'success'}
+            color={'success'}
             size="sm"
             disabled={bondInPortfolio}
             onClick={() => {

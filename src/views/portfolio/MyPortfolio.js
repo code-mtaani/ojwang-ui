@@ -1,16 +1,12 @@
 import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import { axiosPrivate } from 'src/utils/axiosPrivate'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
-import BondsForm from '../bonds/BondsForm'
 import UserBondsTable from './UserBondsTable'
 
 const MyPortfolio = () => {
   const [bonds, setBonds] = useState({})
   const [userBondsList, setUserBondsList] = useState()
   const [userBonds, setUserBonds] = useState({})
-  const [modal, setModal] = React.useState(false)
-  const toggle = () => setModal(!modal)
 
   const fetchBonds = () => {
     axiosPrivate.get('v1/bond/').then((response) => {
@@ -30,11 +26,6 @@ const MyPortfolio = () => {
     })
   }
 
-  const saveCompleteHandler = () => {
-    toggle()
-    fetchBonds()
-  }
-
   const addBondToPortfolioHandler = () => {
     fetchUserBonds()
   }
@@ -49,14 +40,6 @@ const MyPortfolio = () => {
 
   return (
     <>
-      <div>
-        <Modal backdrop={'static'} isOpen={modal} toggle={toggle}>
-          <ModalHeader toggle={toggle}>Edit bond in portfolio</ModalHeader>
-          <ModalBody>
-            <BondsForm onSave={saveCompleteHandler} toggle={toggle}></BondsForm>
-          </ModalBody>
-        </Modal>
-      </div>
       <CRow>
         <CCol xs={12}>
           <CCard>

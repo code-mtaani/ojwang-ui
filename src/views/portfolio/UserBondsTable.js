@@ -2,22 +2,58 @@ import * as React from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import { styled } from '@mui/material/styles'
 import { CButton } from '@coreui/react'
+import { toast } from 'react-toastify'
 import ComponentRBAC from 'src/utils/ComponentRBAC'
 import PropTypes from 'prop-types'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import CIcon from '@coreui/icons-react'
 import { cilMinus } from '@coreui/icons'
 import AddBondToPortfolioForm from '../bonds/AddBondToPortfolioForm'
 import { currencyFormatter, dateFormatter } from 'src/utils/common'
+import { axiosPrivate } from 'src/utils/axiosPrivate'
 
 export default function UserBondsTable(props) {
   const [modal, setModal] = React.useState(false)
   // const [userBondsList] = React.useState(new Array(props.userBondsList))
   const [addToPortfolioModal, setAddToPortfolioModal] = React.useState(false)
   const [editBond, setEditBond] = React.useState('')
+  const [deleteUserBondModal, setDeleteUserBondModal] = React.useState(false)
+  const toggleDeleteUserBondModal = () => setDeleteUserBondModal(!deleteUserBondModal)
 
   const toggle = () => setModal(!modal)
   const addToPortfoliotoggle = () => setAddToPortfolioModal(!addToPortfolioModal)
+
+  const deleteUserBond = async (e) => {
+    const onSuccess = ({ data }) => {
+      toast.success('Successfully deleted bond from portfolio', {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+      props.onSave()
+      toggleDeleteUserBondModal()
+    }
+
+    const onFailure = (error) => {
+      toast.error('An error occured when deleting the bond to your portfolio', {
+        position: 'top-right',
+        autoClose: 1200,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      })
+    }
+    axiosPrivate.delete(`/v1/user_bond/${editBond.id}`).then(onSuccess).catch(onFailure)
+  }
+
   const renderDetailsButton = (params) => {
     return (
       <>
@@ -40,10 +76,10 @@ export default function UserBondsTable(props) {
             variant="outline"
             color={'danger'}
             size="sm"
-            disabled={true}
+            disabled={false}
             onClick={() => {
               setEditBond(params.row)
-              addToPortfoliotoggle()
+              toggleDeleteUserBondModal()
             }}
           >
             <CIcon icon={cilMinus} />
@@ -120,6 +156,22 @@ export default function UserBondsTable(props) {
               {...editBond}
             ></AddBondToPortfolioForm>
           </ModalBody>
+        </Modal>
+        <Modal backdrop={true} isOpen={deleteUserBondModal} toggle={toggleDeleteUserBondModal}>
+          <ModalHeader toggle={toggleDeleteUserBondModal}>
+            Are you sure you want to delete {editBond.issue} from portfolio?
+          </ModalHeader>
+          {/* <ModalBody>
+            <BondsForm onSave={saveCompleteHandler} toggle={toggleDeleteUserBondModal}></BondsForm>
+          </ModalBody> */}
+          <ModalFooter>
+            <CButton color="primary" onClick={toggleDeleteUserBondModal}>
+              Cancel
+            </CButton>{' '}
+            <CButton color="danger" onClick={deleteUserBond}>
+              Delete
+            </CButton>
+          </ModalFooter>
         </Modal>
       </div>
       <div>
