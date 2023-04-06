@@ -18,8 +18,8 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'My Bonds',
-    to: '/bonds/my_bonds',
+    name: 'My Portfolio',
+    to: '/portfolio',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
   },
 ]

@@ -3,7 +3,7 @@ import React from 'react'
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Bonds = React.lazy(() => import('./views/bonds/AllBonds'))
 const OpenBonds = React.lazy(() => import('./views/bonds/OpenBonds'))
-const MyBonds = React.lazy(() => import('./views/bonds/MyBonds'))
+const MyPortfolio = React.lazy(() => import('./views/bonds/MyBonds'))
 
 const UserProfile = React.lazy(() => import('./views/user/Profile'))
 const UserSettings = React.lazy(() => import('./views/user/Settings'))
@@ -13,7 +13,7 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/bonds/all_bonds', name: 'Bonds', element: Bonds },
   { path: '/bonds/open', name: 'Bonds on sale', element: OpenBonds },
-  { path: '/bonds/my_bonds', name: 'My bonds', element: MyBonds },
+  { path: '/portfolio', name: 'My portfolio', element: MyPortfolio },
   { path: '/user/profile', name: 'User profile', element: UserProfile },
   { path: '/user/settings', name: 'User settings', element: UserSettings },
 ]

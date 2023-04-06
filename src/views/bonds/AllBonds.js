@@ -9,12 +9,26 @@ import BondsForm from './BondsForm'
 
 const Bonds = () => {
   const [bonds, setBonds] = useState({})
+  const [userBondsList, setUserBondsList] = useState()
+  const [userBonds, setUserBonds] = useState({})
   const [modal, setModal] = React.useState(false)
   const toggle = () => setModal(!modal)
 
   const fetchBonds = () => {
     axiosPrivate.get('v1/bond/').then((response) => {
       setBonds(response.data)
+    })
+  }
+
+  const fetchUserBonds = () => {
+    axiosPrivate.get('v1/user_bond/').then((response) => {
+      setUserBonds(response.data)
+      let bondList = []
+
+      response.data.forEach((user_bond) => {
+        bondList.push(user_bond.bond_uid)
+      })
+      setUserBondsList(bondList)
     })
   }
 
@@ -26,6 +40,10 @@ const Bonds = () => {
   useEffect(() => {
     fetchBonds()
   }, [setBonds])
+
+  useEffect(() => {
+    fetchUserBonds()
+  }, [setUserBonds])
 
   return (
     <>
@@ -49,7 +67,12 @@ const Bonds = () => {
               </span>
             </CCardHeader>
             <CCardBody>
-              <BondsTable onSave={fetchBonds} bonds={bonds}></BondsTable>
+              <BondsTable
+                userBonds={userBonds}
+                userBondsList={userBondsList}
+                onSave={fetchBonds}
+                bonds={bonds}
+              ></BondsTable>
             </CCardBody>
           </CCard>
         </CCol>

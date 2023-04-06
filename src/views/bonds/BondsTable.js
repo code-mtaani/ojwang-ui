@@ -6,16 +6,23 @@ import ComponentRBAC from 'src/utils/ComponentRBAC'
 import PropTypes from 'prop-types'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 import BondsForm from './BondsForm'
+import CIcon from '@coreui/icons-react'
+import { cilMinus, cilPlus } from '@coreui/icons'
+import AddBondToPortfolioForm from './AddBondToPortfolioForm'
 
 export default function BondsTable(props) {
   const [modal, setModal] = React.useState(false)
+  // const [userBondsList] = React.useState(new Array(props.userBondsList))
+  const [addToPortfolioModal, setAddToPortfolioModal] = React.useState(false)
   const [editBond, setEditBond] = React.useState('')
 
   const toggle = () => setModal(!modal)
+  const addToPortfoliotoggle = () => setAddToPortfolioModal(!addToPortfolioModal)
   const renderDetailsButton = (params) => {
+    let bondInPortfolio = props.userBondsList ? props.userBondsList.includes(params.row.id) : false
     return (
-      <ComponentRBAC allowedRoles={['admin']}>
-        <strong>
+      <>
+        <ComponentRBAC allowedRoles={['admin']}>
           <CButton
             variant="outline"
             color="primary"
@@ -27,8 +34,24 @@ export default function BondsTable(props) {
           >
             Edit
           </CButton>
-        </strong>
-      </ComponentRBAC>
+        </ComponentRBAC>
+        <ComponentRBAC allowedRoles={['admin', 'member']}>
+          <CButton
+            className="mx-1"
+            variant="outline"
+            color={bondInPortfolio ? 'danger' : 'success'}
+            size="sm"
+            disabled={bondInPortfolio}
+            onClick={() => {
+              setEditBond(params.row)
+              addToPortfoliotoggle()
+            }}
+          >
+            <CIcon icon={bondInPortfolio ? cilMinus : cilPlus} />
+            Portfolio
+          </CButton>
+        </ComponentRBAC>
+      </>
     )
   }
 
@@ -39,13 +62,15 @@ export default function BondsTable(props) {
     { field: 'onsale', headerName: 'On Sale', flex: 1, minWidth: 130 },
     { field: 'value_date', headerName: 'Value Date', flex: 1, minWidth: 130 },
     { field: 'redemption_date', headerName: 'Redemption Date', flex: 1, minWidth: 130 },
-    { field: 'amount', headerName: 'Amount', flex: 1, minWidth: 130 },
+    // { field: 'amount', headerName: 'Amount', flex: 1, minWidth: 130 },
     { field: 'coupon_rate', headerName: 'Coupon Rate', flex: 1, minWidth: 100 },
     { field: 'tax_rate', headerName: 'Tax Rate', flex: 1, minWidth: 70 },
-    { field: 'tenor', headerName: 'Tenor', flex: 1, minWidth: 70 },
-    { field: 'maturity', headerName: 'Maturity', flex: 1, minWidth: 100 },
+    // { field: 'tenor', headerName: 'Tenor', flex: 1, minWidth: 70 },
+    // { field: 'maturity', headerName: 'Maturity', flex: 1, minWidth: 100 },
     {
       field: 'action',
+      flex: 1,
+      minWidth: 130,
       headerName: 'Action',
       sortable: false,
       renderCell: renderDetailsButton,
@@ -105,6 +130,20 @@ export default function BondsTable(props) {
           </ModalBody>
         </Modal>
       </div>
+      <div>
+        <Modal backdrop={'static'} isOpen={addToPortfolioModal} toggle={addToPortfoliotoggle}>
+          <ModalHeader toggle={addToPortfoliotoggle}>
+            Add {editBond.issue} to your portfolio
+          </ModalHeader>
+          <ModalBody>
+            <AddBondToPortfolioForm
+              onSave={props.onSave}
+              toggle={addToPortfoliotoggle}
+              {...editBond}
+            ></AddBondToPortfolioForm>
+          </ModalBody>
+        </Modal>
+      </div>
       <DataGrid
         sx={{ border: 0 }}
         css={styled}
@@ -113,7 +152,7 @@ export default function BondsTable(props) {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5,
+              pageSize: 10,
             },
           },
         }}
@@ -129,4 +168,6 @@ export default function BondsTable(props) {
 BondsTable.propTypes = {
   bonds: PropTypes.any,
   onSave: PropTypes.func,
+  userBondsList: PropTypes.array,
+  userBonds: PropTypes.any,
 }
