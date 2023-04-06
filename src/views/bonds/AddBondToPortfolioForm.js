@@ -31,6 +31,7 @@ function AddBondToPortfolioForm(props) {
         theme: 'colored',
       })
       props.onSave()
+      props.toggle()
     }
 
     const onFailure = (error) => {

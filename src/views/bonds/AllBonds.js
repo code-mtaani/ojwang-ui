@@ -37,6 +37,10 @@ const Bonds = () => {
     fetchBonds()
   }
 
+  const addBondToPortfolioHandler = () => {
+    fetchUserBonds()
+  }
+
   useEffect(() => {
     fetchBonds()
   }, [setBonds])
@@ -70,7 +74,7 @@ const Bonds = () => {
               <BondsTable
                 userBonds={userBonds}
                 userBondsList={userBondsList}
-                onSave={fetchBonds}
+                onSave={addBondToPortfolioHandler}
                 bonds={bonds}
               ></BondsTable>
             </CCardBody>
