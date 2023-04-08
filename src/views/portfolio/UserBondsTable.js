@@ -57,7 +57,7 @@ export default function UserBondsTable(props) {
   const renderDetailsButton = (params) => {
     return (
       <>
-        <ComponentRBAC allowedRoles={['admin']}>
+        <ComponentRBAC allowedRoles={['admin', 'member']}>
           <CButton
             variant="outline"
             color="primary"
@@ -153,6 +153,7 @@ export default function UserBondsTable(props) {
             <AddBondToPortfolioForm
               onSave={props.onSave}
               toggle={toggle}
+              editOperation={true}
               {...editBond}
             ></AddBondToPortfolioForm>
           </ModalBody>
