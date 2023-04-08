@@ -1,18 +1,12 @@
-import { cilPlus } from '@coreui/icons'
-import CIcon from '@coreui/icons-react'
-import { CCard, CCardBody, CCardHeader, CCol, CRow, CButton } from '@coreui/react'
+import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import { axiosPrivate } from 'src/utils/axiosPrivate'
-import BondsTable from './BondsTable'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
-import BondsForm from './BondsForm'
+import UserBondsTable from './UserBondsTable'
 
-const Bonds = () => {
+const MyPortfolio = () => {
   const [bonds, setBonds] = useState({})
   const [userBondsList, setUserBondsList] = useState()
   const [userBonds, setUserBonds] = useState({})
-  const [modal, setModal] = React.useState(false)
-  const toggle = () => setModal(!modal)
 
   const fetchBonds = () => {
     axiosPrivate.get('v1/bond/').then((response) => {
@@ -32,11 +26,6 @@ const Bonds = () => {
     })
   }
 
-  const saveCompleteHandler = () => {
-    toggle()
-    fetchBonds()
-  }
-
   const addBondToPortfolioHandler = () => {
     fetchUserBonds()
   }
@@ -51,32 +40,27 @@ const Bonds = () => {
 
   return (
     <>
-      <div>
-        <Modal backdrop={'static'} isOpen={modal} toggle={toggle}>
-          <ModalHeader toggle={toggle}>New Bond</ModalHeader>
-          <ModalBody>
-            <BondsForm onSave={saveCompleteHandler} toggle={toggle}></BondsForm>
-          </ModalBody>
-        </Modal>
-      </div>
       <CRow>
         <CCol xs={12}>
           <CCard>
             <CCardHeader>
-              <span className="float-end">
-                <CButton onClick={toggle} size="sm" color="success">
+              <span className="float-start">
+                {/* <CButton onClick={toggle} size="sm" color="success">
                   <CIcon icon={cilPlus} size="sm" />
                   Add new bond
-                </CButton>
+                </CButton> */}
+                <span>
+                  <strong>Portfolio Bonds</strong>
+                </span>
               </span>
             </CCardHeader>
             <CCardBody>
-              <BondsTable
+              <UserBondsTable
                 userBonds={userBonds}
                 userBondsList={userBondsList}
                 onSave={addBondToPortfolioHandler}
                 bonds={bonds}
-              ></BondsTable>
+              ></UserBondsTable>
             </CCardBody>
           </CCard>
         </CCol>
@@ -85,4 +69,4 @@ const Bonds = () => {
   )
 }
 
-export default Bonds
+export default MyPortfolio

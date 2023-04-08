@@ -18,33 +18,10 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'My Bonds',
-    to: '/bonds/my_bonds',
+    name: 'My Portfolio',
+    to: '/portfolio',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
   },
-  // {
-  //   component: CNavGroup,
-  //   name: 'Bonds',
-  //   to: '/bonds',
-  //   icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
-  //   items: [
-  //     {
-  //       component: CNavItem,
-  //       name: 'All bonds',
-  //       to: '/bonds/all_bonds',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Bonds on sale',
-  //       to: '/bonds/open',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'My bonds',
-  //       to: '/bonds/my_bonds',
-  //     },
-  //   ],
-  // },
 ]
 
 export default _nav
