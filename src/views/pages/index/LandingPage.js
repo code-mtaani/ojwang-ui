@@ -16,6 +16,7 @@ import {
   CCardTitle,
   CCardText,
   CNavbar,
+  CImage,
   CNavbarBrand,
   CNavbarNav,
   CNavItem,
@@ -36,6 +37,9 @@ const LandingPage = () => {
 
   const handleLoginClick = () => {
     navigate('/login')
+  }
+  const handleRegisterClick = () => {
+    navigate('/register')
   }
   return (
     <>
@@ -61,45 +65,60 @@ const LandingPage = () => {
               </CNavLink>
             </CNavItem>
           </CNavbarNav>
-          <div className="justify-content-end"></div>
-          <CForm className="d-flex" onSubmit={handleSearchSubmit}>
-            <CFormInput
-              type="search"
-              placeholder="Search"
-              className="mr-2"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <CButton type="submit" color="primary" style={{}}>
-              Search
-            </CButton>
-          </CForm>
+          <div className="justify-content-end">
+            <CForm className="d-flex row g-3" onSubmit={handleSearchSubmit}>
+              <CCol md={6}>
+                <CFormInput
+                  type="search"
+                  placeholder="Search"
+                  className="mr-2"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </CCol>
+              <CCol md={6}>
+                <CButton type="submit" color="success" variant="ghost" style={{}}>
+                  Search
+                </CButton>
+              </CCol>
+            </CForm>
+          </div>
           <CDropdown>
-            <CDropdownToggle caret>Get Started</CDropdownToggle>
+            <CDropdownToggle caret variant="ghost">
+              Get Started
+            </CDropdownToggle>
             <CDropdownMenu>
               <CDropdownItem onClick={handleLoginClick}>Login</CDropdownItem>
-              <CDropdownItem>Sign Up</CDropdownItem>
+              <CDropdownItem onClick={handleRegisterClick}>Sign Up</CDropdownItem>
             </CDropdownMenu>
           </CDropdown>
         </CContainer>
       </CNavbar>
       <CContainer fluid className="px-3">
-        <CRow>
-          <CCol md={4}>
-            <h1 style={{ fontSize: '28px', fontWeight: 'bold' }}>Hi there</h1>
-            <p style={{ fontSize: '18px' }}>
-              Ojwang is a platform that lists all government bonds that are on sale, their portfolio
-              and coupon payment dates.
-            </p>
-            <CButton color="primary">
-              {' '}
-              <h5 style={{ color: '#ccc' }}>Learn more</h5>
-            </CButton>
-          </CCol>
-          <CCol md={4} className="ms-auto">
-            {/* <CImage align="end" src="https://images.pexels.com/photos/210600/pexels-photo-210600.jpeg" /> */}
-          </CCol>
-        </CRow>
+        <div className="clearfix">
+          <CRow className="align-items-center">
+            <CCol md={4} align="start" width={200} height={200} xs={6}>
+              <h1 style={{ fontSize: '28px', fontWeight: 'bold' }}>Hi there</h1>
+              <p style={{ fontSize: '18px' }}>
+                Ojwang is a platform that lists all government bonds that are on sale, their
+                portfolio and coupon payment dates.
+              </p>
+              <CButton color="primary" variant="outline" timeout={2000}>
+                {' '}
+                <h5 style={{}}>Learn more</h5>
+              </CButton>
+            </CCol>
+            <CCol md={4} align="end" xs={4}>
+              <CImage
+                rounded
+                align="center"
+                src="https://images.pexels.com/photos/210600/pexels-photo-210600.jpeg"
+                width={200}
+                height={200}
+              />
+            </CCol>
+          </CRow>
+        </div>
       </CContainer>
       <CContainer className="py-5">
         <hr style={{ borderTop: '1px solid #ccc', with: '20px' }} />
@@ -178,7 +197,10 @@ const LandingPage = () => {
         <hr style={{ borderTop: '1px solid #ccc', with: '20px' }} />
       </CContainer>
       <CContainer fluid>
-        <h2 className="mt-5 mb-4 text-center" style={{ fontSize: '28px', fontWeight: 'bold' }}>
+        <h2
+          className="mt-5 mb-4 text-center"
+          style={{ fontSize: '30px', color: 'green', fontWeight: 'bold' }}
+        >
           Latest Blog Posts
         </h2>
         <BlogPost />
@@ -186,13 +208,15 @@ const LandingPage = () => {
       <CContainer fluid className="py-5 bg-primary text-white text-center">
         <h2 className="mb-4">Ready to Get Started?</h2>
         <p className="mb-4">Sign up for an account today.</p>
-        <CButton color="light" className="mb-3">
+        <CButton
+          color="light"
+          className="mb-3"
+          variant="outline"
+          timeout={2000}
+          onClick={handleRegisterClick}
+        >
           Sign Up Now
         </CButton>
-        <br />
-        <small>
-          Or <a href="#">learn more</a> about Ojwang
-        </small>
       </CContainer>
       <AppFooter />
     </>
