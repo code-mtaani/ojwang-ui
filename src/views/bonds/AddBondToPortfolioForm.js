@@ -91,7 +91,7 @@ function AddBondToPortfolioForm(props) {
 
   return (
     <div>
-      <Form onSubmit={props.id === null ? handleSubmit : handleEdit}>
+      <Form onSubmit={props.editOperation === true ? handleEdit : handleSubmit}>
         <FormGroup>
           <Label for="coupon_rate">Coupon rate</Label>
           <Input
@@ -126,7 +126,7 @@ function AddBondToPortfolioForm(props) {
           />
         </FormGroup>
         <Button type="submit" onClick={() => handleSubmit()}>
-          {props.id === null ? 'Submit' : 'Edit'}
+          {props.editOperation === true ? 'Edit' : 'Submit'}
         </Button>
       </Form>
     </div>
@@ -143,6 +143,7 @@ AddBondToPortfolioForm.propTypes = {
   uid: PropTypes.string,
   id: PropTypes.string,
   bond_uid: PropTypes.string,
+  editOperation: PropTypes.bool,
 }
 
 export default AddBondToPortfolioForm
