@@ -58,6 +58,21 @@ export const getUserUid = () => {
   return decodedToken.user_uid
 }
 
+export const getUserInitials = () => {
+  var authToken = getToken()
+  if (!authToken) {
+    return
+  }
+
+  var decodedToken = jwt_decode(authToken)
+  var fullName = '' + decodedToken.first_name + ' ' + decodedToken.last_name
+  var initials = fullName
+    .match(/(\b\S)?/g)
+    .join('')
+    .toUpperCase()
+  return initials
+}
+
 export const checkAccess = (permittedRoles, userRoles) => {
   return permittedRoles.some((v) => userRoles.includes(v))
 }

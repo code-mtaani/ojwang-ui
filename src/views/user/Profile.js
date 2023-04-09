@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { axiosPrivate } from 'src/utils/axiosPrivate'
 import { CCard, CAvatar, CRow, CCol, CCardBody } from '@coreui/react'
 import avatarImg from '../../assets/images/avatars/6.jpg'
-import { getUserUid } from 'src/utils/auth'
+import { getUserInitials, getUserUid } from 'src/utils/auth'
 
 const Profile = () => {
   const [userDetails, setUserDetails] = useState({ email: '', first_name: '', last_name: '' })
@@ -27,7 +27,9 @@ const Profile = () => {
             {/* <CAvatar className="mt-4" color="primary" textColor="white" size="xl">
               { initials }
             </CAvatar> */}
-            <CAvatar className="rounded-circle img-fluid" src={avatarImg} size="xl" />
+            <CAvatar className="rounded-circle img-fluid" color="dark" textColor="white" size="xl">
+              {getUserInitials()}
+            </CAvatar>
             <h5 className="my-3">{`${userDetails.first_name} ${userDetails.last_name}`}</h5>
             <p className="text-muted mb-1">{userDetails.email}</p>
             <p className="text-muted mb-4">User Role</p>
