@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { axiosPrivate } from 'src/utils/axiosPrivate'
 import { CCard, CAvatar, CRow, CCol, CCardBody } from '@coreui/react'
-import avatarImg from '../../assets/images/avatars/6.jpg'
 import { getUserInitials, getUserUid } from 'src/utils/auth'
 
 const Profile = () => {
