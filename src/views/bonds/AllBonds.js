@@ -6,6 +6,7 @@ import { axiosPrivate } from 'src/utils/axiosPrivate'
 import BondsTable from './BondsTable'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 import BondsForm from './BondsForm'
+import ComponentRBAC from 'src/utils/ComponentRBAC'
 
 const Bonds = () => {
   const [bonds, setBonds] = useState({})
@@ -63,12 +64,17 @@ const Bonds = () => {
         <CCol xs={12}>
           <CCard>
             <CCardHeader>
-              <span className="float-end">
-                <CButton onClick={toggle} size="sm" color="success">
-                  <CIcon icon={cilPlus} size="sm" />
-                  Add new bond
-                </CButton>
+              <span className="float-start">
+                <strong>Bond list</strong>
               </span>
+              <ComponentRBAC allowedRoles={['admin']}>
+                <span className="float-end">
+                  <CButton onClick={toggle} size="sm" color="success">
+                    <CIcon icon={cilPlus} size="sm" />
+                    Add new bond
+                  </CButton>
+                </span>
+              </ComponentRBAC>
             </CCardHeader>
             <CCardBody>
               <BondsTable
