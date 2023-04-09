@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { toast } from 'react-toastify'
 import {
+  CAlert,
+  CAlertLink,
   CButton,
   CCard,
   CCardBody,
@@ -11,14 +12,14 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CSpinner,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+import { cilCheckCircle, cilLockLocked, cilUser } from '@coreui/icons'
 import { axiosPublic } from 'src/utils/axiosPublic'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Register = () => {
-  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [phone_number, setPhone_number] = useState('')
@@ -26,48 +27,65 @@ const Register = () => {
   const [last_name, setLast_name] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
-  const [loginErrorMessage, setLoginErrorMessage] = useState('Failed to Login')
+  const [registrationErrorMessage, setRegistrationErrorMessage] = useState([])
+  const [registrationLoadingShow, setRegistrationLoadingShow] = useState(false)
+  const [alertVisible, setAlertVisible] = useState(false)
+  const [formClassName, setFormClassName] = useState('')
+  const [validityState, setValidityState] = useState({
+    email: false,
+    username: false,
+    phone_number: false,
+    first_name: false,
+    last_name: false,
+    password: false,
+    password2: false,
+  })
+  const [validityError, setValidityError] = useState({
+    email: '',
+    username: '',
+    phone_number: '',
+    first_name: '',
+    last_name: '',
+    password: '',
+    password2: '',
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // setLoginLoadingShow(true)
-    const payload = JSON.stringify({ email, password })
+    setRegistrationLoadingShow(true)
+    const payload = JSON.stringify({
+      email,
+      username,
+      phone_number,
+      first_name,
+      last_name,
+      password,
+      password2,
+    })
 
     const onSuccess = ({ data }) => {
-      toast.success('Login successful', {
-        position: 'top-right',
-        autoClose: 1200,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-      })
-      // setLoginLoadingShow(false)
-      localStorage.setItem('session', JSON.stringify(data))
-      navigate('/')
+      setRegistrationLoadingShow(false)
+      setAlertVisible(true)
+      setFormClassName('d-none')
     }
 
     const onFailure = (error) => {
-      // setLoginLoadingShow(false)
-      if (error?.response?.status === 401) {
-        setLoginErrorMessage('Login Failed - wrong credentials supplied')
+      setRegistrationLoadingShow(false)
+      if (error?.response?.status === 400) {
+        console.log(error.response.data)
+        for (const key in error.response.data) {
+          let validState = validityState
+          let validationErrors = validityError
+          validState[key] = true
+          validationErrors[key] = error.response.data[key]
+          setValidityState({ ...validState })
+          setValidityError({ ...validationErrors })
+        }
       } else {
-        setLoginErrorMessage('Failed to Login')
+        setRegistrationErrorMessage('Account creation failed')
       }
-      toast.error(`${error && loginErrorMessage}`, {
-        position: 'top-right',
-        autoClose: 1200,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-      })
     }
-    axiosPublic.post('/v1/user/', payload).then(onSuccess).catch(onFailure)
+    axiosPublic.post('/v1/user/register/', payload).then(onSuccess).catch(onFailure)
   }
 
   return (
@@ -76,10 +94,24 @@ const Register = () => {
         <CRow className="justify-content-center">
           <CCol md={9} lg={7} xl={6}>
             <CCard className="mx-4">
+              {registrationErrorMessage}
               <CCardBody className="p-4">
-                <CForm>
+                <CAlert color="success" visible={alertVisible}>
+                  <CIcon
+                    icon={cilCheckCircle}
+                    className="flex-shrink-0 me-2"
+                    width={24}
+                    height={24}
+                  />
+                  Your Ojwang account was created successfully. {''}
+                  <CAlertLink href="/login">Login to your account.</CAlertLink>
+                </CAlert>
+                <CForm className={formClassName} onSubmit={handleSubmit}>
                   <h1>Register</h1>
-                  <p className="text-medium-emphasis">Create your account</p>
+                  <p className="text-medium-emphasis">
+                    Create your account. If you already have an account, {}
+                    <Link to="/login">login here </Link>
+                  </p>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
@@ -90,6 +122,8 @@ const Register = () => {
                       type="text"
                       id="username"
                       required
+                      feedback={validityError.username}
+                      invalid={validityState.username}
                       onChange={(e) => setUsername(e.target.value)}
                     />
                   </CInputGroup>
@@ -103,6 +137,8 @@ const Register = () => {
                       type="text"
                       id="first_name"
                       required
+                      feedback={validityError.first_name}
+                      invalid={validityState.first_name}
                       onChange={(e) => setFirst_name(e.target.value)}
                     />
                   </CInputGroup>
@@ -116,6 +152,8 @@ const Register = () => {
                       type="text"
                       id="last_name"
                       required
+                      feedback={validityError.last_name}
+                      invalid={validityState.last_name}
                       onChange={(e) => setLast_name(e.target.value)}
                     />
                   </CInputGroup>
@@ -129,6 +167,8 @@ const Register = () => {
                       type="text"
                       id="phone_number"
                       required
+                      feedback={validityError.phone_number}
+                      invalid={validityState.phone_number}
                       onChange={(e) => setPhone_number(e.target.value)}
                     />
                   </CInputGroup>
@@ -140,6 +180,9 @@ const Register = () => {
                       type="email"
                       required
                       id="email"
+                      // label="City"
+                      feedback={validityError.email}
+                      invalid={validityState.email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
                   </CInputGroup>
@@ -153,6 +196,8 @@ const Register = () => {
                       placeholder="Password"
                       autoComplete="password"
                       required
+                      feedback={validityError.password}
+                      invalid={validityState.password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </CInputGroup>
@@ -162,15 +207,23 @@ const Register = () => {
                     </CInputGroupText>
                     <CFormInput
                       type="password"
-                      id="password"
+                      id="password2"
                       placeholder="Repeat password"
                       autoComplete="password2"
                       required
+                      feedback={validityError.password2}
+                      invalid={validityState.password2}
                       onChange={(e) => setPassword2(e.target.value)}
                     />
                   </CInputGroup>
                   <div className="d-grid">
-                    <CButton color="success">Create Account</CButton>
+                    <CButton type="submit" color="primary" className="px-4">
+                      {registrationLoadingShow ? (
+                        <CSpinner component="span" size="sm" aria-hidden="true" />
+                      ) : (
+                        'Create Account'
+                      )}
+                    </CButton>
                   </div>
                 </CForm>
               </CCardBody>
