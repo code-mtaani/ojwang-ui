@@ -14,7 +14,6 @@ import { axiosPrivate } from 'src/utils/axiosPrivate'
 
 export default function UserBondsTable(props) {
   const [modal, setModal] = React.useState(false)
-  // const [userBondsList] = React.useState(new Array(props.userBondsList))
   const [addToPortfolioModal, setAddToPortfolioModal] = React.useState(false)
   const [editBond, setEditBond] = React.useState('')
   const [deleteUserBondModal, setDeleteUserBondModal] = React.useState(false)
@@ -52,6 +51,18 @@ export default function UserBondsTable(props) {
       })
     }
     axiosPrivate.delete(`/v1/user_bond/${editBond.id}`).then(onSuccess).catch(onFailure)
+  }
+
+  const getNextCouponPayment = (coupon_payment_dates) => {
+    var today = new Date().toLocaleDateString('fr-CA')
+    coupon_payment_dates.sort()
+    for (const i in coupon_payment_dates) {
+      if (coupon_payment_dates[i] >= today) {
+        return coupon_payment_dates[i]
+      }
+    }
+    // return redemption date
+    return coupon_payment_dates.slice(-1)
   }
 
   const renderDetailsButton = (params) => {
@@ -93,16 +104,17 @@ export default function UserBondsTable(props) {
   const columns = [
     { field: 'issue', headerName: 'Issue', flex: 1, minWidth: 130 },
     { field: 'value_date', headerName: 'Value Date', flex: 1, minWidth: 130 },
-    // { field: 'issuer', headerName: 'Issuer', flex: 1.5, minWidth: 200 },
-    // { field: 'type', headerName: 'Type', flex: 1, minWidth: 130 },
     { field: 'dirty_price', headerName: 'Dirty Price', flex: 1, minWidth: 130 },
     { field: 'face_value', headerName: 'Face Value', flex: 1, minWidth: 130 },
     { field: 'redemption_date', headerName: 'Redemption Date', flex: 1, minWidth: 130 },
-    // { field: 'amount', headerName: 'Amount', flex: 1, minWidth: 130 },
     { field: 'coupon_rate', headerName: 'Coupon Rate', flex: 1, minWidth: 100 },
-    // { field: 'tax_rate', headerName: 'Tax Rate', flex: 1, minWidth: 70 },
-    // { field: 'tenor', headerName: 'Tenor', flex: 1, minWidth: 70 },
-    // { field: 'maturity', headerName: 'Maturity', flex: 1, minWidth: 100 },
+    {
+      field: 'next_coupon_payment_date',
+      headerName: 'Next Payment Date',
+      flex: 1,
+      minWidth: 130,
+    },
+    { field: 'interest_amount', headerName: 'Interest Amount', flex: 1, minWidth: 100 },
     {
       field: 'action',
       flex: 1,
@@ -118,6 +130,9 @@ export default function UserBondsTable(props) {
   let rows = []
 
   bonds.forEach(function (bond) {
+    let coupon_payment_list = Object.keys(bond.coupon_payments)
+    let next_coupon_payment_date = getNextCouponPayment(coupon_payment_list)
+    let interest_amount = bond.coupon_payments[next_coupon_payment_date].interest_amount
     rows.push({
       id: bond.uid,
       issue: bond.bond.issue,
@@ -139,6 +154,8 @@ export default function UserBondsTable(props) {
       tenor: bond.tenor,
       maturity: bond.maturity,
       coupon_payment_dates: bond.coupon_payment_dates,
+      next_coupon_payment_date: dateFormatter.format(new Date(next_coupon_payment_date)),
+      interest_amount: currencyFormatter.format(interest_amount),
       sale_date_start: bond.sale_date_start,
       sale_date_end: bond.sale_date_end,
     })
