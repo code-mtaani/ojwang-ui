@@ -57,10 +57,10 @@ export default function BondsTable(props) {
 
   const columns = [
     { field: 'issue', headerName: 'Issue', flex: 1, minWidth: 130 },
+    { field: 'value_date', headerName: 'Value Date', flex: 1, minWidth: 130 },
     { field: 'issuer', headerName: 'Issuer', flex: 1.5, minWidth: 200 },
     { field: 'type', headerName: 'Type', flex: 1, minWidth: 130 },
     { field: 'onsale', headerName: 'On Sale', flex: 1, minWidth: 130 },
-    { field: 'value_date', headerName: 'Value Date', flex: 1, minWidth: 130 },
     { field: 'redemption_date', headerName: 'Redemption Date', flex: 1, minWidth: 130 },
     // { field: 'amount', headerName: 'Amount', flex: 1, minWidth: 130 },
     { field: 'coupon_rate', headerName: 'Coupon Rate', flex: 1, minWidth: 100 },
