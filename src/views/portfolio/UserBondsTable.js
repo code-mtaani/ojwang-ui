@@ -228,7 +228,6 @@ export default function UserBondsTable(props) {
 }
 
 UserBondsTable.propTypes = {
-  bonds: PropTypes.any,
   onSave: PropTypes.func,
   userBondsList: PropTypes.array,
   userBonds: PropTypes.any,
