@@ -4,10 +4,6 @@ import {
   CButton,
   CCol,
   CContainer,
-  CDropdown,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
   CForm,
   CFormInput,
   CCard,
@@ -23,7 +19,11 @@ import {
   CRow,
 } from '@coreui/react'
 import { AppFooter } from '../../../components'
+import Modal from './sections/Modal'
 import BlogPost from './sections/BlogSection'
+import cardImage1 from '../../../assets/images/cardimage1.jpg'
+import CIcon from '@coreui/icons-react'
+import { cilSearch } from '@coreui/icons'
 
 const LandingPage = () => {
   const [searchQuery, setSearchQuery] = useState('')
@@ -33,17 +33,12 @@ const LandingPage = () => {
     e.preventDefault()
     //set searchQuery to input text
   }
-
-  const handleLoginClick = () => {
-    navigate('/login')
-  }
   const handleRegisterClick = () => {
     navigate('/register')
   }
   return (
     <>
       <CNavbar
-        expand="md"
         className="justify-content-center"
         placement="sticky-top"
         style={{ background: 'White' }}
@@ -52,56 +47,54 @@ const LandingPage = () => {
           <CNavbarBrand>
             <h3 style={{ color: 'green' }}>Ojwang</h3>
           </CNavbarBrand>
-          <div className="justify-content-center">
-            <CForm className="d-flex row g-3" onSubmit={handleSearchSubmit}>
-              <CCol md={6}>
-                <CFormInput
-                  type="search"
-                  placeholder="search"
-                  className="mr-2"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </CCol>
-              <CCol md={6}>
-                <CButton type="submit" color="success" variant="outline" style={{ color: 'green' }}>
-                  Submit
-                </CButton>
-              </CCol>
-            </CForm>
+          <div style={{ width: '35%' }}>
+            <CContainer fluid>
+              <CForm className="d-flex row g-3" onSubmit={handleSearchSubmit}>
+                <CCol md={9} sm={4} xs="auto">
+                  <CFormInput
+                    type="search"
+                    placeholder="Search"
+                    className="mr-2"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    style={{ color: 'black' }}
+                  />
+                </CCol>
+                <CCol xs="auto">
+                  <CIcon icon={cilSearch} size="xxl" onClick={handleSearchSubmit}></CIcon>
+                </CCol>
+              </CForm>
+            </CContainer>
           </div>
-          <CDropdown style={{ color: 'green' }}>
-            <CDropdownToggle caret variant="ghost">
-              Account
-            </CDropdownToggle>
-            <CDropdownMenu>
-              <CDropdownItem onClick={handleLoginClick}>Login</CDropdownItem>
-              <CDropdownItem onClick={handleRegisterClick}>Sign Up</CDropdownItem>
-            </CDropdownMenu>
-          </CDropdown>
+          <Modal />
         </CContainer>
       </CNavbar>
+
       <CCarousel
-        interval={2500}
+        interval={3000}
         pause
-        controls
+        wrap
+        activeIndex={0}
         dark
-        style={{ height: '65vh', margin: '20px' }}
+        indicators
         transition="crossfade"
+        style={{ height: '68vh', margin: '20px' }}
       >
         <CCarouselItem>
           <CContainer md className="mt-2 pt-2">
             <div className="clearfix row justify-content-md-center">
               <CRow className="align-items-center" xs={{ gutterX: 5 }}>
-                <CCol md={4} sm="auto" align="start" width={200} height={200} xs={6}>
-                  <h1 style={{ fontSize: '28px', fontWeight: 'bold' }}>About Ojwang</h1>
+                <CCol md={4} sm={8} align="start" width={200} height={200} xs={6}>
+                  <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: 'green' }}>
+                    About Ojwang
+                  </h1>
                   <p style={{ fontSize: '18px' }}>
                     {' '}
                     Ojwang is a platform that lists all government bonds that are on sale, their
                     portfolio and coupon payment dates.
                   </p>
                 </CCol>
-                <CCol md={8} xs={8} sm="auto">
+                <CCol md={8} xs={8} sm={8}>
                   <CCard className=" bg-dark text-white border border-0">
                     <CCardImage
                       src="https://images.pexels.com/photos/210600/pexels-photo-210600.jpeg"
@@ -118,7 +111,7 @@ const LandingPage = () => {
           <CContainer md className="mt-2 pt-2">
             <div className="clearfix row justify-content-md-center">
               <CRow className="align-items-center" xs={{ gutterX: 5 }}>
-                <CCol md={8} xs={8} sm="auto" align="start">
+                <CCol md={8} xs={8} sm={8} align="start">
                   <CCard className=" bg-dark text-white border border-0">
                     <CCardImage
                       src="https://storage.googleapis.com/nextivawebsites-wordpressfiles-voip/var/www/virtual/nextiva.com/voip/benefits-of-event-sponsorship-feature-image-1366x768.jpg"
@@ -127,48 +120,20 @@ const LandingPage = () => {
                     />
                   </CCard>
                 </CCol>{' '}
-                <CCol md={4} sm="auto" align="start" width={200} height={200} xs={6}>
-                  <h1 style={{ fontSize: '28px', fontWeight: 'bold' }}>Sponsors</h1>
+                <CCol md={4} sm={8} align="start" width={200} height={200} xs={6}>
+                  <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: 'green' }}>Mission</h1>
                   <p style={{ fontSize: '18px' }}>
-                    We welcome all forms of sponsorship to support our organization. Whether it is
-                    financial support, in-kind contributions, or partnerships, we are open to
-                    exploring opportunities that align with our mission and values. we would be
-                    happy to discuss potential opportunities.
+                    provide a comprehensive and user-friendly platform that enables investors to buy
+                    and sell bonds with confidence, while also fostering transparency, security,
+                    convenience, education, and community.
                   </p>
-                </CCol>
-              </CRow>
-            </div>
-          </CContainer>
-        </CCarouselItem>
-        <CCarouselItem>
-          <CContainer md className="mt-2 pt-2">
-            <div className="clearfix row justify-content-md-center">
-              <CRow className="align-items-center" xs={{ gutterX: 5 }}>
-                <CCol md={4} sm="auto" align="start" width={200} height={200} xs={6}>
-                  <h1 style={{ fontSize: '28px', fontWeight: 'bold' }}>Developers</h1>
-                  <p style={{ fontSize: '18px' }}>
-                    {' '}
-                    Our developers are working round the clock to make sure customer&apos;s
-                    satisfaction
-                  </p>
-                </CCol>
-                <CCol md={8} xs={8} sm="auto">
-                  <CCard className=" bg-dark text-white border border-0">
-                    <CCardImage
-                      src="https://lvivity.com/wp-content/uploads/2019/11/hire-team.jpg"
-                      height={500}
-                      width={900}
-                    />
-                  </CCard>
                 </CCol>
               </CRow>
             </div>
           </CContainer>
         </CCarouselItem>
       </CCarousel>
-
       <CContainer className="mt-2 pt-2 " fluid>
-        <hr style={{ borderTop: '1px solid #ccc', with: '20px' }} />
         <h2
           className="mb-4 text-center"
           style={{ fontSize: '30px', color: 'green', fontWeight: 'bold' }}
@@ -244,42 +209,57 @@ const LandingPage = () => {
             </CCol>
           </CRow>
         </div>
-
-        <hr style={{ borderTop: '1px solid #ccc', with: '20px' }} />
       </CContainer>
-      <CCard className="bg-dark text-blue border border-0">
-        <CCardImage
-          src="https://equito.co/app/uploads/2022/07/Equito-How-to-analyze-a-stock-808x440.jpg"
-          height={500}
-          width={900}
-        />
-        <CCardImageOverlay className={'text-center tp-10'}>
-          <CCardText>
-            <h2 className="mb-4">Ready to Get Started?</h2>
-            <p className="mb-4">Sign up for an account today.</p>
-          </CCardText>
-          <CCardText>
-            <CButton
-              color="light"
-              className="mb-3"
-              variant="outline"
-              timeout={2000}
-              onClick={handleRegisterClick}
-            >
-              Sign Up Now
-            </CButton>
-          </CCardText>
+      <CCard className="bg-dark text-blue border-0">
+        <CCardImage src={cardImage1} height={500} width={900} />
+        <CCardImageOverlay className={'tp-10'}>
+          <CCardBody color="grey">
+            <CContainer>
+              <CRow xs={{ cols: 1 }}>
+                <CCol md={4} sm={2}>
+                  {' '}
+                  <CCardText style={{}}>
+                    <h2
+                      className="mt-5 mb-4"
+                      style={{ color: 'white', fontSize: '30px', fontWeight: 'bold' }}
+                    >
+                      Ready to Get Started?
+                    </h2>
+                    <p
+                      className="mb-2 mt-5"
+                      style={{ color: 'white', fontSize: '18px', fontWeight: 'bold' }}
+                    >
+                      Sign up for an account today.
+                    </p>
+                  </CCardText>
+                  <CCardText>
+                    <CButton
+                      color="success"
+                      shape="rounded-3"
+                      variant="outline"
+                      className="mb-2 mt-5"
+                      onClick={handleRegisterClick}
+                      style={{ color: 'white', fontWeight: 'bold' }}
+                    >
+                      Sign Up Now
+                    </CButton>
+                  </CCardText>
+                </CCol>
+                <CCol md={8} sm={4}>
+                  {' '}
+                  <h2
+                    className="mt-5 mb-4"
+                    style={{ fontSize: '30px', color: 'green', fontWeight: 'bold' }}
+                  >
+                    Latest Blog Posts
+                  </h2>
+                  <BlogPost />
+                </CCol>
+              </CRow>
+            </CContainer>
+          </CCardBody>
         </CCardImageOverlay>
       </CCard>
-      <CContainer fluid>
-        <h2
-          className="mt-5 mb-4 text-center"
-          style={{ fontSize: '30px', color: 'green', fontWeight: 'bold' }}
-        >
-          Latest Blog Posts
-        </h2>
-        <BlogPost />
-      </CContainer>
       <AppFooter />
     </>
   )
