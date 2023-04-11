@@ -243,6 +243,7 @@ function BondsForm(props) {
             name="coupon_rate"
             placeholder="Coupon rate"
             type="number"
+            step="0.001"
             onChange={(e) => setCoupon_rate(e.target.value)}
           />
         </FormGroup>
