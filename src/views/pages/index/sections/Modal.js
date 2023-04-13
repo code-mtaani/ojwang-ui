@@ -1,40 +1,45 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import {
   CButton,
   CModal,
-  CModalHeader,
   CModalBody,
   CListGroup,
   CForm,
+  CRow,
+  CCol,
   CInputGroup,
   CInputGroupText,
   CFormInput,
-  CListGroupItem,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+import {
+  cilLockLocked,
+  cilUser,
+  cilUserPlus,
+  cibGoogle,
+  cibTwitter,
+  cibFacebook,
+} from '@coreui/icons'
+import OffCanvas from './Offcanvas'
 const Modal = () => {
   const [visible, setVisible] = useState(false)
-  const navigate = useNavigate()
-  const handleLoginClick = () => {
-    navigate('/login')
-  }
-  const handleRegisterClick = () => {
-    navigate('/register')
-  }
+
   return (
     <>
       <CButton
-        variant="outline"
-        color="success"
+        color="white"
         style={{ color: 'green', fontWeight: 'bold', fontSize: '20px' }}
         onClick={() => setVisible(!visible)}
       >
-        Get Started
+        <CRow className="text-center">
+          <CCol>Account</CCol>
+          <CCol>
+            {' '}
+            <CIcon icon={cilUserPlus} size="xl" />
+          </CCol>
+        </CRow>
       </CButton>
       <CModal alignment="center" visible={visible} onClose={() => setVisible(false)}>
-        <CModalHeader></CModalHeader>
         <CModalBody>
           <CForm>
             <h1>Register</h1>
@@ -66,12 +71,70 @@ const Modal = () => {
               />
             </CInputGroup>
             <div className="d-grid">
-              <CButton color="success">Create Account</CButton>
+              <CButton color="success" style={{ fontWeight: 'bold' }}>
+                Create Account
+              </CButton>
             </div>
+            <CListGroup>
+              <div>
+                <CRow>
+                  <CCol md={4}>
+                    <hr />
+                  </CCol>
+                  <CCol
+                    className="text-center mt-2"
+                    style={{ colord: 'black', fontWeight: 'bold', fontSize: '24px' }}
+                  >
+                    {' '}
+                    OR
+                  </CCol>
+                  <CCol md={4}>
+                    {' '}
+                    <hr />
+                  </CCol>
+                </CRow>
+              </div>
+            </CListGroup>
+            <CListGroup className="text-center mt-4">
+              <div>
+                <CRow>
+                  <CCol md={4}>
+                    <CIcon icon={cibGoogle} style={{ color: 'red' }} size="xxl" />
+                  </CCol>
+                  <CCol md={4}>
+                    <CIcon icon={cibTwitter} style={{ color: 'blue' }} size="xxl" />
+                  </CCol>
+                  <CCol md={4}>
+                    <CIcon icon={cibFacebook} style={{ color: 'blue' }} size="xxl" />
+                  </CCol>
+                </CRow>
+              </div>
+            </CListGroup>
+            <CListGroup className="mt-4">
+              <div className="text-center">
+                <CRow>
+                  <CCol md={2}>
+                    <hr />
+                  </CCol>
+                  <CCol
+                    md={8}
+                    className="text-center"
+                    style={{ colord: 'black', fontWeight: 'bold' }}
+                  >
+                    {' '}
+                    Already have an account ?
+                  </CCol>
+                  <CCol md={2}>
+                    {' '}
+                    <hr />
+                  </CCol>
+                </CRow>
+              </div>
+              <div>
+                <OffCanvas />
+              </div>
+            </CListGroup>
           </CForm>
-          <CListGroup flush>
-            <CListGroupItem></CListGroupItem>
-          </CListGroup>
         </CModalBody>
       </CModal>
     </>
