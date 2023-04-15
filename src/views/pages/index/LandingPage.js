@@ -1,7 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import {
-  CButton,
   CCol,
   CContainer,
   CCard,
@@ -17,18 +15,17 @@ import BlogPost from './sections/BlogSection'
 import NavBar from './sections/NavBar'
 import Carousel from './sections/CarouselSection'
 import DevelopersCard from './sections/DevelopersSection'
+import GetInTouch from './sections/GetInTouch'
+import Modal from './sections/Modal'
+import TopBar from './sections/TopBar'
 
 const LandingPage = () => {
-  const navigate = useNavigate()
-
-  const handleRegisterClick = () => {
-    navigate('/register')
-  }
   return (
     <>
-      <CContainer fluid>
-        <NavBar />
-      </CContainer>
+      <div style={{ height: '2.5em' }} className="bg-white">
+        <TopBar />
+      </div>
+      <NavBar />
 
       <Carousel />
 
@@ -109,58 +106,75 @@ const LandingPage = () => {
           </CRow>
         </div>
       </CContainer>
-      <CContainer fluid className="mt-2 pt-2">
+      <CContainer
+        fluid
+        className="mt-2  bg-dark"
+        style={{
+          height: '65vh',
+        }}
+      >
         <CRow>
-          <CCol md={4} xs={8}>
-            <h1 style={{ fontSize: '30px', color: 'green', fontWeight: 'bold' }}>Developers</h1>
+          <CCol md={4} xs={8} className="mb-4 mt-4 ml-4 mr-4">
+            <h1
+              style={{ fontSize: '30px', color: 'white', fontWeight: 'bold' }}
+              className="text-start"
+            >
+              Meet The creators
+            </h1>
             <DevelopersCard />
           </CCol>
-          <CCol>
-            <CCard color="white border-white" style={{ height: '65vh' }}></CCard>
+          <CCol md={8} xs={4}>
+            <CContainer className="m-4">
+              {' '}
+              <h1
+                style={{ fontSize: '30px', color: 'white', fontWeight: 'bold' }}
+                className="text-center"
+              >
+                Why Ojwang
+              </h1>
+              <p style={{ color: 'white', fontSize: '24px' }} className="m-4 text-start ">
+                Ojwang is a bond system that offers several favorable characteristics to potential
+                investors. Ojwang also offers competitive yields and return potential, which are
+                carefully assessed in relation to the risks involved, taking into account the
+                company&apos;s robust financial health and stable industry outlook. Moreover, Ojwang
+                provides diversification benefits, as it is part of a well-diversified investment
+                portfolio, spreading risks across different issuers, industries, and regions.
+                Additionally, Ojwang has favorable bond features and terms, such as appropriate
+                maturity periods and call provisions that align with investors&apos; needs. Overall,
+                Ojwang is a reliable bond system that offers attractive investment opportunities for
+                investors seeking a balance between risk and return.
+              </p>
+            </CContainer>
           </CCol>
         </CRow>
       </CContainer>
-      <CCard className="bg-dark text-blue mt-4 border-0" color="light" style={{ height: '60vh' }}>
+      <GetInTouch />
+      <CCard className="text-blue  border-0 bg-light opacity-75" style={{ height: '60vh' }}>
         <CCardImageOverlay className={'tp-10'}>
-          <CCardBody color="grey">
+          <CCardBody>
             <CContainer>
               <CRow xs={{ cols: 1 }}>
-                <CCol md={4} sm={2}>
+                <CCol md={4} sm={8}>
                   {' '}
                   <CCardText style={{}}>
-                    <h2
-                      className="mt-5 mb-4"
-                      style={{ color: 'white', fontSize: '30px', fontWeight: 'bold' }}
-                    >
+                    <h2 className="mt-5 mb-4" style={{ fontSize: '30px', fontWeight: 'bold' }}>
                       Ready to Get Started?
                     </h2>
                     <CContainer>
-                      <p
-                        className="mb-2 mt-5"
-                        style={{ color: 'white', fontSize: '18px', fontWeight: 'bold' }}
-                      >
+                      <p className="mb-2 mt-5" style={{ fontSize: '18px', fontWeight: 'bold' }}>
                         Sign up for an account today.
                       </p>
                     </CContainer>
                   </CCardText>
                   <CCardText>
-                    <CButton
-                      color="success"
-                      shape="rounded-3"
-                      variant="outline"
-                      className="mb-2 mt-5"
-                      onClick={handleRegisterClick}
-                      style={{ color: 'white', fontWeight: 'bold' }}
-                    >
-                      Sign Up Now
-                    </CButton>
+                    <Modal />
                   </CCardText>
                 </CCol>
                 <CCol md={8} sm={4}>
                   {' '}
                   <h2
                     className="mt-5 mb-4"
-                    style={{ fontSize: '30px', color: 'green', fontWeight: 'bold' }}
+                    style={{ fontSize: '30px', color: 'dark', fontWeight: 'bold' }}
                   >
                     Latest Blog Posts
                   </h2>

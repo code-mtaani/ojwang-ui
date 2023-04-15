@@ -38,7 +38,12 @@ const BlogPost = () => {
     <>
       <CListGroup flush>
         {blogData.map((blog) => (
-          <CListGroupItem component="a" href="#" key={blog.id} color="dark">
+          <CListGroupItem
+            component="a"
+            key={blog.id}
+            color="dark"
+            onClick={handlePostClick(blog.id)}
+          >
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">{blog.title}</h5>
               <small className="text-medium-emphasis">{blog.datePosted}</small>

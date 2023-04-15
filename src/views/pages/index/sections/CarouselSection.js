@@ -6,7 +6,7 @@ const Carousel = () => {
   return (
     <>
       {' '}
-      <CCard style={{ height: '50vh' }} fluid="true" className="text-center">
+      <CCard style={{ height: '60vh' }} fluid="true" className="text-center">
         <CCarousel
           interval={3000}
           wrap
@@ -19,12 +19,12 @@ const Carousel = () => {
         >
           <CCarouselItem>
             <CImage
-              className="d-block w-100"
+              className="d-block w-100 opacity-75"
               src={cardImage2}
               alt="Slide"
-              style={{ height: '50vh' }}
+              style={{ height: '60vh' }}
             />
-            <CCarouselCaption className="d-none d-md-block bg-black">
+            <CCarouselCaption className="d-none d-md-block bg-black ">
               <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: 'green' }}>About Ojwang</h1>
               <p style={{ fontSize: '18px', color: 'white' }}>
                 {' '}
@@ -35,10 +35,10 @@ const Carousel = () => {
           </CCarouselItem>
           <CCarouselItem>
             <CImage
-              className="d-block w-100"
+              className="d-block w-100 opacity-75"
               src={cardImage2}
               alt="slide 2"
-              style={{ height: '50vh' }}
+              style={{ height: '60vh' }}
             />
             <CCarouselCaption className="d-none d-md-block bg-black">
               <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: 'green' }}>Mission</h1>

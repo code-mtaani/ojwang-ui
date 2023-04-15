@@ -15,24 +15,39 @@ const DevelopersCard = () => {
     //TODO: return callback
   }
   const developers = [
-    { id: '1', name: 'Clair issessiah ', excerpt: 'Product Designer', image: '' },
-    { id: '2', name: 'Bildad Owuor', excerpt: 'Junior software engineer', image: '' },
-    { id: '3', name: 'Victor Michanga', excerpt: 'Code reviewer', image: '' },
+    {
+      id: '1',
+      name: 'Drey Issessiah ',
+      excerpt: 'Product Designer',
+      image:
+        'https://img.freepik.com/free-photo/rear-view-programmer-working-all-night-long_1098-18697.jpg?w=740&t=st=1681587626~exp=1681588226~hmac=d0b7e8168002fe73280f98203813e5728ad6ebd6a324cb1795b3a5eabd60b590',
+    },
+    {
+      id: '2',
+      name: 'Charles ',
+      excerpt: 'Junior software engineer',
+      image:
+        'https://img.freepik.com/free-photo/rear-view-programmer-working-all-night-long_1098-18697.jpg?w=740&t=st=1681587626~exp=1681588226~hmac=d0b7e8168002fe73280f98203813e5728ad6ebd6a324cb1795b3a5eabd60b590',
+    },
+    {
+      id: '3',
+      name: 'Victor Michanga',
+      excerpt: 'Code reviewer',
+      image:
+        'https://img.freepik.com/free-photo/rear-view-programmer-working-all-night-long_1098-18697.jpg?w=740&t=st=1681587626~exp=1681588226~hmac=d0b7e8168002fe73280f98203813e5728ad6ebd6a324cb1795b3a5eabd60b590',
+    },
   ] //TODO: get developrs from API
   return (
     <>
-      <CCarousel pause="hover" activeIndex={0} touch={true} dark interval={1500} className="mt-4">
+      <CCarousel pause="hover" activeIndex={1} touch={true} dark interval={1500} className="mt-4">
         {' '}
         {developers.map((developer) => (
-          <CCarouselItem key={developer.index}>
-            <CCol md={4} sm={2} key={developers.length}>
-              <CCard
-                style={{ height: '55vh', width: '35em', minWidth: '20rem' }}
-                className="border-light md-3"
-              >
+          <CCarouselItem key={developer.index} style={{ height: '55vh' }}>
+            <CCol md={4} sm={2}>
+              <CCard className="border-light md-3" style={{ width: '25em' }}>
                 <CCardHeader>
                   {' '}
-                  <CCardImage orientation="top" src={developer.image} height={260} width={150} />
+                  <CCardImage orientation="top" src={developer.image} height={200} width={200} />
                 </CCardHeader>
                 <CCardBody>
                   <h5
@@ -47,7 +62,8 @@ const DevelopersCard = () => {
                   <CButton
                     color="primary"
                     block="true"
-                    style={{ fontSize: '18px' }}
+                    className="mb-4 ml-4 mt-2 bg-light border-0"
+                    style={{ width: '90%', height: '4em', color: 'green', fontWeight: 'bold' }}
                     onClick={handleLinkClicked(developer.id)}
                   >
                     Read More

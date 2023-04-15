@@ -7,19 +7,13 @@ import {
   CForm,
   CRow,
   CCol,
+  CModalHeader,
   CInputGroup,
   CInputGroupText,
   CFormInput,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import {
-  cilLockLocked,
-  cilUser,
-  cilUserPlus,
-  cibGoogle,
-  cibTwitter,
-  cibFacebook,
-} from '@coreui/icons'
+import { cilLockLocked, cilUser, cibGoogle, cibTwitter, cibFacebook } from '@coreui/icons'
 import OffCanvas from './Offcanvas'
 const Modal = () => {
   const [visible, setVisible] = useState(false)
@@ -27,19 +21,23 @@ const Modal = () => {
   return (
     <>
       <CButton
-        color="white"
-        style={{ color: 'green', fontWeight: 'bold', fontSize: '20px' }}
+        color="success"
+        shape="rounded-3"
+        variant="outline"
         onClick={() => setVisible(!visible)}
+        className="mb-4 ml-2 mt-2 bg-success border-2"
+        style={{
+          width: '20em',
+          height: '4em',
+          color: 'white',
+          fontWeight: 'bold',
+          fontSize: '20px',
+        }}
       >
-        <CRow className="text-center">
-          <CCol>Account</CCol>
-          <CCol>
-            {' '}
-            <CIcon icon={cilUserPlus} size="xl" />
-          </CCol>
-        </CRow>
+        Sign Up Now
       </CButton>
       <CModal alignment="center" visible={visible} onClose={() => setVisible(false)}>
+        <CModalHeader></CModalHeader>
         <CModalBody>
           <CForm>
             <h1>Register</h1>
