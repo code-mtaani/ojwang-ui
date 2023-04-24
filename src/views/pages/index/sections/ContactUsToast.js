@@ -16,7 +16,7 @@ const ContactUsForm = () => {
   const [toast, addToast] = useState(0)
   const toaster = useRef()
   const formToast = (
-    <CToast autohide={true} color="white" style={{ height: '60vh', color: 'black', width: '30em' }}>
+    <CToast autohide={true} color="white" style={{ height: '60%', color: 'black', width: '30em' }}>
       <CToastHeader>
         <h4>Send us a message</h4>
         <CToastClose className="me-2 m-auto" black />
@@ -49,7 +49,7 @@ const ContactUsForm = () => {
       <CButton
         onClick={() => addToast(formToast)}
         className="mb-4 ml-2 mt-2 bg-light border-0"
-        style={{ width: '25em', height: '4em', color: 'Black', fontWeight: 'bold' }}
+        style={{ width: '50%', height: '4em', color: 'Black', fontWeight: 'bold' }}
       >
         CONTACT US
       </CButton>

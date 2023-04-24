@@ -9,12 +9,15 @@ import {
   CNavItem,
   CNavLink,
   CNavbarToggler,
-  CCollapse,
   CNavbarNav,
+  COffcanvas,
+  COffcanvasBody,
+  COffcanvasHeader,
+  COffcanvasTitle,
+  CCloseButton,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilSearch } from '@coreui/icons'
-import Modal from './Modal'
 
 const NavBar = () => {
   const [searchQuery, setSearchQuery] = useState('')
@@ -26,9 +29,9 @@ const NavBar = () => {
   }
   return (
     <>
-      <CNavbar placement="sticky-top" style={{ background: 'White' }} expand="lg">
+      <CNavbar placement="sticky-top" style={{ background: 'White' }} expand="md">
         <CContainer fluid>
-          <CCol md={2}>
+          <CCol md={4} sm={8}>
             <CNavbarBrand>
               <h3 style={{ color: 'green' }} className="mt-4">
                 {' '}
@@ -36,54 +39,68 @@ const NavBar = () => {
               </h3>
             </CNavbarBrand>
           </CCol>
-          <CNavbarToggler
-            aria-label="Menu"
-            aria-expanded={visible}
-            onClick={() => setVisible(!visible)}
-          />
-          <CCol md={4}>
-            {' '}
-            <CCollapse className="navbar-collapse ml-4 text-center" visible={visible} md={6}>
-              <CNavbarNav className="text-center">
-                <CNavItem>
-                  <CNavLink href="#" active style={{ fontWeight: 'bold', fontSize: '24px' }}>
-                    Home
-                  </CNavLink>
-                </CNavItem>
-                <CNavItem>
-                  <CNavLink href="#" style={{ fontWeight: 'bold', fontSize: '24px' }}>
-                    Features
-                  </CNavLink>
-                </CNavItem>
-                <CNavItem>
-                  <CNavLink href="#" style={{ fontWeight: 'bold', fontSize: '24px' }}>
-                    About Us
-                  </CNavLink>
-                </CNavItem>
-                <CNavItem>
-                  <CNavLink href="#" style={{ fontWeight: 'bold', fontSize: '24px' }}>
-                    Blogs
-                  </CNavLink>
-                </CNavItem>
-              </CNavbarNav>
-            </CCollapse>
+          <CCol md={5} sm={4} xs="auto">
+            <COffcanvas
+              id="offcanvasNavbar2"
+              placement="end"
+              portal={false}
+              visible={visible}
+              onHide={() => setVisible(false)}
+            >
+              <COffcanvasHeader>
+                <COffcanvasTitle style={{ color: 'green' }}>Ojwang</COffcanvasTitle>
+                <CCloseButton className="text-reset" onClick={() => setVisible(false)} />
+              </COffcanvasHeader>
+              <COffcanvasBody className="text-center">
+                <CNavbarNav>
+                  <CNavItem>
+                    <CNavLink href="#" active style={{ fontWeight: 'bold', fontSize: '24px' }}>
+                      Home
+                    </CNavLink>
+                  </CNavItem>
+                  <CNavItem>
+                    <CNavLink href="#" style={{ fontWeight: 'bold', fontSize: '24px' }}>
+                      Features
+                    </CNavLink>
+                  </CNavItem>
+                  <CNavItem>
+                    <CNavLink href="#" style={{ fontWeight: 'bold', fontSize: '24px' }}>
+                      About Us
+                    </CNavLink>
+                  </CNavItem>
+                  <CNavItem>
+                    <CNavLink href="#" style={{ fontWeight: 'bold', fontSize: '24px' }}>
+                      Blogs
+                    </CNavLink>
+                  </CNavItem>
+                  <CNavItem>
+                    <CForm className=" ml-4 d-flex row g-1" onSubmit={handleSearchSubmit}>
+                      <CFormInput
+                        type="search"
+                        placeholder="Search"
+                        className="mr-2"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        style={{ color: 'black', width: '100%' }}
+                      />
+                    </CForm>
+                  </CNavItem>
+                  <CNavItem>
+                    {' '}
+                    <CIcon icon={cilSearch} size="xxl" onClick={handleSearchSubmit} />
+                  </CNavItem>
+                </CNavbarNav>
+              </COffcanvasBody>
+            </COffcanvas>
           </CCol>
 
-          <CForm className="d-flex row g-3" onSubmit={handleSearchSubmit}>
-            <CCol md={8} sm={4} xs="auto">
-              <CFormInput
-                type="search"
-                placeholder="Search"
-                className="mr-2"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                style={{ color: 'black' }}
-              />
-            </CCol>
-            <CCol xs="auto">
-              <CIcon icon={cilSearch} size="xxl" onClick={handleSearchSubmit}></CIcon>
-            </CCol>
-          </CForm>
+          <CCol sm={4} className="text-start">
+            <CNavbarToggler
+              aria-controls="offcanvasNavbar"
+              aria-label="Toggle navigation"
+              onClick={() => setVisible(!visible)}
+            />
+          </CCol>
         </CContainer>
       </CNavbar>
     </>

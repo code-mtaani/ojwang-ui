@@ -27,7 +27,7 @@ const Modal = () => {
         onClick={() => setVisible(!visible)}
         className="mb-4 ml-2 mt-2 bg-success border-2"
         style={{
-          width: '20em',
+          width: '100%',
           height: '4em',
           color: 'white',
           fontWeight: 'bold',

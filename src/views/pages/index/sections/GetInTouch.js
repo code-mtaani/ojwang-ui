@@ -5,9 +5,9 @@ import ContactUsForm from './ContactUsToast'
 const GetInTouch = () => {
   return (
     <>
-      <CContainer fluid className="">
+      <CContainer fluid className="justify-content-center">
         <CRow>
-          <CCol md={6} className="bg-black bg-opacity-75">
+          <CCol md={6} sm={8} className="bg-black bg-opacity-75">
             <CContainer>
               <h1
                 className="mt-4 ml-4"
@@ -24,18 +24,18 @@ const GetInTouch = () => {
               <ContactUsForm />
             </CContainer>
           </CCol>
-          <CCol md={6} className="bg-warning bg-opacity-75" style={{}}>
+          <CCol md={6} sm={8} className="bg-warning bg-opacity-75" style={{}}>
             <h3 className="mt-4" style={{ color: 'white', fontSize: '30px', fontWeight: 'bold' }}>
               Subscribe
             </h3>
             <CFormInput
               placeholder="EMAIL"
-              style={{ width: '35em', height: '4em' }}
+              style={{ width: '75%', height: '4em' }}
               className="border-0"
             ></CFormInput>
             <CButton
               className="mb-4 ml-2 mt-2 bg-black border-0"
-              style={{ color: 'white', fontWeight: 'bold', width: '35em', height: '4em' }}
+              style={{ color: 'white', fontWeight: 'bold', width: '40%', height: '4em' }}
             >
               SUBSCRIBE
             </CButton>
