@@ -8,7 +8,7 @@ const Profile = () => {
   // let initials
   // get user by user_uid
   const getUser = async () => {
-    const res = await axiosPrivate.get(`/v1/user/${getUserUid()}/`)
+    const res = await axiosPrivate.get(`/v1/auth/user/${getUserUid()}/`)
     setUserDetails(res.data)
   }
   // initials = userDetails.first_name.substring(0,1).toUpperCase() + userDetails.last_name.substring(0,1).toUpperCase()

@@ -26,7 +26,7 @@ export const logout = () => {
     localStorage.removeItem('session')
     window.location.reload()
   }
-  axiosPrivate.post('/v1/user/logout/', payload).then(onSuccess).catch(onFailure)
+  axiosPrivate.post('/v1/auth/logout/', payload).then(onSuccess).catch(onFailure)
 }
 
 export const getLoggedInUserRoles = () => {

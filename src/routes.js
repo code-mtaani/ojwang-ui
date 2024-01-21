@@ -2,6 +2,7 @@ import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Bonds = React.lazy(() => import('./views/bonds/AllBonds'))
+const Mandates = React.lazy(() => import('./views/mandate/Mandate'))
 const OpenBonds = React.lazy(() => import('./views/bonds/OpenBonds'))
 const MyPortfolio = React.lazy(() => import('./views/portfolio/MyPortfolio'))
 
@@ -15,6 +16,7 @@ const routes = [
   { path: '/bonds/open', name: 'Bonds on sale', element: OpenBonds },
   { path: '/portfolio', name: 'My portfolio', element: MyPortfolio },
   { path: '/user/profile', name: 'User profile', element: UserProfile },
+  { path: '/user/mandate', name: 'User profile', element: Mandates },
   { path: '/user/settings', name: 'User settings', element: UserSettings },
 ]
 

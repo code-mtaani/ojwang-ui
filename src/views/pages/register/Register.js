@@ -85,7 +85,7 @@ const Register = () => {
         setRegistrationErrorMessage('Account creation failed')
       }
     }
-    axiosPublic.post('/v1/user/register/', payload).then(onSuccess).catch(onFailure)
+    axiosPublic.post('/v1/auth/register-user/', payload).then(onSuccess).catch(onFailure)
   }
 
   return (

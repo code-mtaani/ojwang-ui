@@ -66,7 +66,7 @@ const Login = () => {
         theme: 'colored',
       })
     }
-    axiosPublic.post('/v1/user/login/', payload).then(onSuccess).catch(onFailure)
+    axiosPublic.post('/v1/auth/login/', payload).then(onSuccess).catch(onFailure)
   }
 
   return (
